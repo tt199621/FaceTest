@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">客户星球</string>
+    <string name="active_failed">引擎激活失败，错误码为 %d</string>
+</resources>

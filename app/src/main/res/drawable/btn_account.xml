@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--实现应用背景颜色渐变-->
+    <gradient
+        android:startColor="#eeeeee"
+        android:endColor="#eeeeee"
+        android:angle="180"/>
+    <corners
+        android:radius="50dp" />
+    <!--android:startColor="#000000"
+    android:endColor="#ffffff"-->
+    <!--android:angle="0"//效果是：是从左到右，按照开始颜色到结束颜色来渲染的
+    android:angle="90"//效果是：是从下到上，按照开始颜色到结束颜色来渲染的
+    android:angle="180"//效果是：是从右到左，按照开始颜色到结束颜色来渲染的
+    android:angle="270"//效果是：是从上到下，按照开始颜色到结束颜色来渲染的-->
+
+    <!--android:startColor="#aa000000"  渐变起始色值
+       android:centerColor=""		渐变中间色值
+       android:endColor="#ffffffff"	渐变结束颜色
+       android:angle="45"		渐变的方向 默认为0 从做向右 ，90时从下向上 必须为45的整数倍
+       android:type="radial"		渐变类型 有三种 线性linear 放射渐变radial 扫描线性渐变sweep
+       android:centerX="0.5"		渐变中心相对X坐标只有渐变类型为放射渐变时有效
+       android:centerY="0.5"		渐变中心相对Y坐标只有渐变类型为放射渐变时有效
+       android:gradientRadius="100" 	渐变半径 非线性放射有效
+       -->
+</shape>

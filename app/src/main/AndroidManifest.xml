@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.facetest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 脸部识别权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.ModifyPassword"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.PassWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ExhibitionDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.WorkModelActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ExhibitionModeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="@string/metadata_skill"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="@string/metadata_actions"
+            android:value="chat.chat" />
+    </application>
+
+</manifest>
