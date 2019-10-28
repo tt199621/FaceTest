@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:id="@+id/text_setting_exhbition"
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:layout_height="50dp"
+        android:background="@drawable/longbox"
+        android:text="机器人展位"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_margin="5dp"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/remove_exhbition"
+        android:background="@drawable/longbox"
+        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:src="@drawable/remove"/>
+
+</LinearLayout>

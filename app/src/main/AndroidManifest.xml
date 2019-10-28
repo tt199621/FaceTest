@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ModifyPassword"
+        <activity android:name=".activity.ExhibitionDetailsActivity"></activity>
+        <activity android:name=".activity.SettingExhDetailsActivity" />
+        <activity android:name=".activity.SettingExhibitonActivity" />
+        <activity
+            android:name=".activity.ModifyPassword"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SettingActivity"
@@ -23,7 +27,7 @@
             android:name=".activity.PassWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ExhibitionDetailsActivity"
+            android:name=".activity.ExhibitionItemActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.WorkModelActivity"

@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.facetest.R;
 
+/**
+ * 设置页面
+ */
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView finish_setting,home_setting;
@@ -42,18 +45,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         setting_default_mode.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.setting_welcom_words://迎宾词
+            case R.id.setting_welcom_words://设置迎宾词
                 break;
-            case R.id.setting_activities://活动介绍
+            case R.id.setting_activities://设置活动介绍
                 break;
-            case R.id.setting_exhibition_introduce://展厅介绍
+            case R.id.setting_exhibition_introduce://设置展厅介绍
+                startActivity(new Intent(this,SettingExhibitonActivity.class));
                 break;
-            case R.id.setting_answer://业务问答
+            case R.id.setting_answer://设置业务问答
                 break;
-            case R.id.setting_data_plan://日程安排
+            case R.id.setting_data_plan://设置日程安排
                 break;
             case R.id.setting_password://设置口令
                 startActivity(new Intent(this,ModifyPassword.class));

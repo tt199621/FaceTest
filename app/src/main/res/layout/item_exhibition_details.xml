@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/img_exh_details"
-        android:layout_width="match_parent"
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_item_exh"
+        app:riv_corner_radius="6dp"
+        android:layout_width="500dp"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:src="@drawable/work_bg"
-        android:scaleType="fitXY"/>
+        android:layout_weight="9"
+        android:src="@drawable/screen_bg"
+        android:scaleType="fitXY" />
     <TextView
-        android:id="@+id/text_exh_details"
+        android:id="@+id/location_exh_details"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:text="介绍文字"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"/>
+        android:text="展位名称"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
 </LinearLayout>

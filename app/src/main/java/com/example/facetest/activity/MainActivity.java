@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                     drawHelper.draw(faceRectView, drawInfoList);
                     if (drawInfoList.size()>0&&ifSpeak){
                         mTimer.start();
-                        robot.speak(TtsRequest.create("你好",false));
+                        robot.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
                         ifSpeak=false;
 
                         utils = AlertDialogUtils.getInstance();

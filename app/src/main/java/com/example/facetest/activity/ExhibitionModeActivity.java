@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,7 +35,6 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
 
     //进入时随机播放
     public void randomPlay(){
-        Toast.makeText(this, ""+randomPlay[new Random().nextInt(randomPlay.length)], Toast.LENGTH_SHORT).show();
         robot.speak(TtsRequest.create(randomPlay[new Random().nextInt(randomPlay.length)],false));
     }
 
@@ -56,10 +54,14 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.introduction://展位介绍
-                startActivity(new Intent(this,ExhibitionDetailsActivity.class));
+                startActivity(new Intent(this, ExhibitionItemActivity.class));
                 break;
             case R.id.conf_btn://设置
                 startActivity(new Intent(this,PassWordActivity.class));
+                break;
+            case R.id.returnhome:
+                startActivity(new Intent(this,MainActivity.class));
+                finish();
                 break;
         }
     }

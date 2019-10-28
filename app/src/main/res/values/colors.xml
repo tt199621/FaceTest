@@ -7,4 +7,5 @@
     <color name="black">#000</color>
     <color name="divider_color">#BEBBBB</color>
     <color name="colorFloatingButton_press">#32c6e8</color>
+    <color name="gray">#BEBBBB</color>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
 
     private EditText modify_password1,modify_password2;
     private Button modify_commit;
+    private ImageView finish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,8 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
         modify_password1=findViewById(R.id.modify_password1);
         modify_password2=findViewById(R.id.modify_password2);
         modify_commit=findViewById(R.id.modify_commit);
+        finish=findViewById(R.id.finish);
+        finish.setOnClickListener(this);
         modify_commit.setOnClickListener(this);
     }
 
@@ -40,6 +44,9 @@ public class ModifyPassword extends AppCompatActivity implements View.OnClickLis
                 }else {
                     Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.finish:
+                finish();
                 break;
         }
     }

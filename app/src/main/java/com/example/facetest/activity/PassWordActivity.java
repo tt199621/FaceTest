@@ -16,7 +16,7 @@ public class PassWordActivity extends AppCompatActivity implements View.OnClickL
 
     TextView inputpwd;
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,buttondel,enterbtn;
-    String password=null;
+    String password="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
