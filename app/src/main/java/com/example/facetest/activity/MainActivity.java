@@ -430,6 +430,14 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
     }
 
     @Override
+    protected void onPause() {
+        // 取消监听
+        robot.removeOnRobotReadyListener(this);
+        robot.removeNlpListener(this);
+        super.onPause();
+    }
+
+    @Override
     public void onNlpCompleted(NlpResult nlpResult) {
 
     }

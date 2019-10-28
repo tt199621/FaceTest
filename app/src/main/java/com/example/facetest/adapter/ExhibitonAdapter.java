@@ -1,6 +1,7 @@
 package com.example.facetest.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.facetest.R;
+import com.example.facetest.activity.ExhibitionDetailsActivity;
 import com.example.facetest.bean.ExhibitionBean;
 import com.robotemi.sdk.Robot;
-import com.robotemi.sdk.TtsRequest;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class ExhibitonAdapter extends RecyclerView.Adapter<ExhibitonAdapter.View
     Context context;
     List<ExhibitionBean> list;
     Robot robot=Robot.getInstance();
+    public static String imgSrc,imgProduce,speak,location;
 
     public ExhibitonAdapter(Context context, List<ExhibitionBean> list) {
         this.context = context;
@@ -52,7 +54,29 @@ public class ExhibitonAdapter extends RecyclerView.Adapter<ExhibitonAdapter.View
                 }else {
                     robot.speak(TtsRequest.create("还未设置介绍词",false));
                 }*/
-                robot.speak(TtsRequest.create("请您跟我来",false));
+                if (list.get(i).getSrc() != null) {
+                    imgSrc=list.get(i).getSrc();//图片路径
+                }else {
+                    imgSrc="";//图片路径
+                }
+
+                if (list.get(i).getText() != null) {
+                    imgProduce=list.get(i).getText();//文字介绍
+                }else {
+                    imgProduce="未设置介绍内容";//文字介绍
+                }
+
+                if (list.get(i).getText() != null) {
+                    speak=list.get(i).getSpeak();//语音介绍
+                }else {
+                    speak="";//语音介绍
+                }
+
+                location=list.get(i).getLocation();
+
+                /*点击列表跳转到详情页*/
+                context.startActivity(new Intent(context, ExhibitionDetailsActivity.class));
+
             }
         });
     }
