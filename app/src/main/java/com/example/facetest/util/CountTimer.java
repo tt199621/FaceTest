@@ -7,9 +7,13 @@ import android.os.CountDownTimer;
 import com.example.facetest.activity.MainActivity;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
+import com.robotemi.sdk.listeners.OnGoToLocationStatusChangedListener;
 
-public class CountTimer extends CountDownTimer {
+public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnGoToLocationStatusChangedListener {
     private Context context;
+    Robot robotTime=Robot.getInstance();
+    Boolean code=false;
+
 
     /**
      * 参数 millisInFuture       倒计时总时间（如60S，120s等）
@@ -22,13 +26,47 @@ public class CountTimer extends CountDownTimer {
     // 计时完毕回到主页面
     @Override
     public void onFinish() {
-        context.startActivity(new Intent(context, MainActivity.class));
-        Robot robot=Robot.getInstance();
-        robot.speak(TtsRequest.create("没人跟我玩，那我回去充电咯",false));
-        robot.goTo("home base");
+        // 注册监听事件
+        robotTime.addTtsListener(this);
+        robotTime.addOnGoToLocationStatusChangedListener(this);
+        robotTime.speak(TtsRequest.create("没人跟我玩，那我回去充电咯",false));
+        code=true;
     }
     // 计时过程显示
     @Override
     public void onTick(long millisUntilFinished) {
     }
+
+    @Override
+    public void onTtsStatusChanged(TtsRequest ttsRequest) {
+        switch (ttsRequest.getStatus()){
+            case COMPLETED:
+                if (code==true)
+                    robotTime.goTo("home base");
+                break;
+        }
+    }
+
+    @Override
+    public void onGoToLocationStatusChanged(String s, String s1) {
+        switch (s1){
+            case "complete":
+                if (code==true){
+                    code=false;
+                    context.startActivity(new Intent(context, MainActivity.class));
+                    robotTime.removeTtsListener(this);
+                    robotTime.removeOnGoToLocationStatusChangedListener(this);
+                }
+                break;
+            case "abort"://中途打断
+                if (code==true){
+                    robotTime.removeTtsListener(this);
+                    robotTime.removeOnGoToLocationStatusChangedListener(this);
+                    code=false;
+                }
+                break;
+        }
+    }
+
+
 }

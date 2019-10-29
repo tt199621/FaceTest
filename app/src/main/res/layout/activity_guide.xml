@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/title_back"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/guide_image"
+        app:riv_corner_radius="6dp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:src="@drawable/screensaver1"
+        android:scaleType="fitXY" />
+    <TextView
+        android:id="@+id/guide_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="客户星球"
+        android:textSize="30sp"
+        android:textColor="@color/white"/>
+</LinearLayout>

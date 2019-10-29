@@ -1,0 +1,173 @@
+package com.example.facetest.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.example.facetest.R;
+import com.example.facetest.bean.ExhibitionBean;
+import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.CountTimer;
+import com.example.facetest.util.ListDataSave;
+import com.robotemi.sdk.Robot;
+import com.robotemi.sdk.TtsRequest;
+import com.robotemi.sdk.listeners.OnGoToLocationStatusChangedListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GuideActivity extends AppCompatActivity implements Robot.TtsListener, OnGoToLocationStatusChangedListener {
+
+    private ImageView guide_image,finish;
+    private TextView guide_introduce;
+    private ListDataSave save;
+    private List<String> locations;
+    private List<ExhibitionBean> beans;
+    private Robot robot;
+    private int order=0;//导览顺序编号
+    private Boolean code=false;
+    private CountTimer timer;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_guide);
+        initView();
+        initData();
+    }
+
+    public void  initView(){
+        robot=Robot.getInstance();
+        locations=new ArrayList<>();
+        locations=robot.getLocations();
+        for (int i = 0; i < locations.size(); i++) {
+            Log.d("locations",""+robot.getLocations().get(i));
+        }
+        beans=new ArrayList<>();
+        save=new ListDataSave(this,"location");
+        guide_image=findViewById(R.id.guide_image);
+        guide_introduce=findViewById(R.id.guide_introduce);
+        timer=new CountTimer(60000,1000,this);//设置定时
+        finish=findViewById(R.id.finish);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                timer.cancel();
+            }
+        });
+    }
+
+    public void initData(){
+        locations.remove("home base");
+        beans.clear();
+        for (int i = 0; i < locations.size(); i++) {
+            List<LocationBean> data=save.getDataList(locations.get(i));
+            if (data!=null){
+                ExhibitionBean bean=new ExhibitionBean();
+                bean.setLocation(locations.get(i));
+                for (int j = 0; j < data.size(); j++) {
+                    if (data.get(j).getCode()==0){
+                        bean.setText(data.get(j).getContent());//介绍文字
+                    }
+                    if (data.get(j).getCode()==1){
+                        bean.setSpeak(data.get(j).getContent());//语音介绍
+                    }
+                    if (data.get(j).getCode()==2){
+                        bean.setSrc(data.get(j).getContent());//图片路径
+                    }
+                }
+                beans.add(bean);
+            }
+        }
+
+        //第一个展位信息
+        Glide.with(this).load(beans.get(order).getSrc()).placeholder(R.drawable.screensaver1).into(guide_image);//展位图片
+        guide_introduce.setText(beans.get(order).getText());//文字信息
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    robot.speak(TtsRequest.create("请您跟我来",false));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        robot.goTo(beans.get(order).getLocation());//前往第一个展位
+    }
+
+    //说话回调
+    @Override
+    public void onTtsStatusChanged(TtsRequest ttsRequest) {
+        switch (ttsRequest.getStatus()){
+            case COMPLETED:
+                if (code==true){
+                    if (order<beans.size()){
+                        Glide.with(this).load(beans.get(order).getSrc()).placeholder(R.drawable.screensaver1).into(guide_image);//展位图片
+                        guide_introduce.setText(beans.get(order).getText());//文字信息
+                        robot.goTo(beans.get(order).getLocation());//前往下一个展位
+                        code=false;
+                    }else {
+                        timer.start();
+                    }
+                }
+                break;
+        }
+    }
+
+
+
+
+    //前往回调
+    @Override
+    public void onGoToLocationStatusChanged(String s, String s1) {
+        switch (s1){
+            case "complete":
+                if (order<beans.size()) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(100);
+                                robot.speak(TtsRequest.create(beans.get(order).getSpeak(), false));//语音介绍
+                                code=true;
+                                order++;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+                break;
+            case "abort":
+                startActivity(new Intent(this,GuideActivity.class));
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 注册监听事件
+        robot.addOnGoToLocationStatusChangedListener(this);
+        robot.addTtsListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        // 取消监听
+        robot.removeOnGoToLocationStatusChangedListener(this);
+        robot.removeTtsListener(this);
+        timer.cancel();
+        super.onPause();
+    }
+
+}

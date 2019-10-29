@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
     public void setBanner(){
         banner=findViewById(R.id.banner);
         path=new ArrayList<>();
+        path.clear();
         path.add(R.drawable.screensaver1);
         path.add(R.drawable.screensaver2);
         path.add(R.drawable.screensaver3);
@@ -325,7 +326,8 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                     drawHelper.draw(faceRectView, drawInfoList);
                     if (drawInfoList.size()>0&&ifSpeak){
                         mTimer.start();
-                        robot.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
+                        Robot robotW=Robot.getInstance();
+                        robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
                         ifSpeak=false;
 
                         utils = AlertDialogUtils.getInstance();

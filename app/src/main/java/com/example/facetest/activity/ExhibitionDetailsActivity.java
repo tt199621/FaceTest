@@ -19,7 +19,7 @@ public class ExhibitionDetailsActivity extends BaseDispatchTouchActivity impleme
     private ImageView finish,image_details;
     private TextView exh_produce;
     Robot robot=Robot.getInstance();
-    Boolean speakCode=true;
+    Boolean speakCode=true,goCode=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +66,21 @@ public class ExhibitionDetailsActivity extends BaseDispatchTouchActivity impleme
             case "start":
                 break;
             case "complete":
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("介绍：",""+ExhibitonAdapter.speak);
-                        robot.speak(TtsRequest.create(ExhibitonAdapter.speak,false));
-                    }
-                }).start();
+                if (goCode==true){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(100);
+                                Log.d("介绍：",""+ExhibitonAdapter.speak);
+                                robot.speak(TtsRequest.create(ExhibitonAdapter.speak,false));
+                                goCode=false;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
                 break;
             case "abort"://中途打断
                 break;

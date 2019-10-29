@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ExhibitionDetailsActivity"></activity>
+        <activity android:name=".activity.GuideActivity"></activity>
+        <activity android:name=".activity.ExhibitionDetailsActivity" />
         <activity android:name=".activity.SettingExhDetailsActivity" />
         <activity android:name=".activity.SettingExhibitonActivity" />
         <activity

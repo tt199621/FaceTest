@@ -8,9 +8,13 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.facetest.R;
+import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,13 +22,14 @@ import java.util.Random;
  */
 public class ExhibitionModeActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     private Robot robot;
     String[] randomPlay={"我已经进入展厅模式啦，要来参观下展厅吗",
             "进入展厅状态，我要当个小导游啦",
             "进入展厅状态，我带你参观吧"};
+    private List<String> locations;
+    private ListDataSave save;
 
-    private ImageView introduction,returnhome,switch_btn,conf_btn;
+    private ImageView introduction,exhibition,returnhome,switch_btn,conf_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,7 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
     public void initView(){
         robot=Robot.getInstance();
         introduction=findViewById(R.id.introduction);//展位介绍按钮
+        exhibition=findViewById(R.id.exhibition);//导览介绍按钮
         returnhome=findViewById(R.id.returnhome);//返回屏保页
         switch_btn=findViewById(R.id.switch_btn);//切换模式
         conf_btn=findViewById(R.id.conf_btn);//设置
@@ -48,6 +54,7 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
         switch_btn.setOnClickListener(this);
         returnhome.setOnClickListener(this);
         introduction.setOnClickListener(this);
+        exhibition.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +62,23 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
         switch (view.getId()){
             case R.id.introduction://展位介绍
                 startActivity(new Intent(this, ExhibitionItemActivity.class));
+                break;
+            case R.id.exhibition://导览介绍
+                Boolean intentCode=true;
+                locations=new ArrayList<>();
+                locations=robot.getLocations();
+                locations.remove("home base");
+                save=new ListDataSave(this,"location");
+                for (int i = 0; i < locations.size(); i++) {
+                    List<LocationBean> data = save.getDataList(locations.get(i));
+                    if (data.size() == 0) {
+                        robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", false));
+                        intentCode=false;
+                        startActivity(new Intent(this, SettingExhibitonActivity.class));
+                    }
+                }
+                if (intentCode==true)
+                startActivity(new Intent(this,GuideActivity.class));
                 break;
             case R.id.conf_btn://设置
                 startActivity(new Intent(this,PassWordActivity.class));
