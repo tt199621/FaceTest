@@ -1,8 +1,7 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,12 +43,9 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
     public void  initView(){
         robot=Robot.getInstance();
         locations=new ArrayList<>();
-        locations=robot.getLocations();
-        for (int i = 0; i < locations.size(); i++) {
-            Log.d("locations",""+robot.getLocations().get(i));
-        }
         beans=new ArrayList<>();
         save=new ListDataSave(this,"location");
+        locations=save.getLocation("location_order");
         guide_image=findViewById(R.id.guide_image);
         guide_introduce=findViewById(R.id.guide_introduce);
         timer=new CountTimer(60000,1000,this);//设置定时

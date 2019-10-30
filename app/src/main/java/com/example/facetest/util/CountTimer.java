@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 
-import com.example.facetest.activity.MainActivity;
+import com.example.facetest.activity_exhibition.MainActivity;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
 import com.robotemi.sdk.listeners.OnGoToLocationStatusChangedListener;

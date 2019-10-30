@@ -56,5 +56,36 @@ public class ListDataSave {
         return datalist;
 
     }
+
+    /**
+     *
+     * @param tag=key
+     * @param locations=排序后的点位
+     */
+    public  void setLocation(String tag, List<String> locations) {
+        if (null == locations || locations.size() <= 0)
+            return;
+        Log.d("exhName","setKey:"+ tag);
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(locations);
+        editor.putString(tag, strJson);
+        editor.commit();
+    }
+
+
+    public  List<String> getLocation(String tag) {
+        List<String> locations=new ArrayList<>();
+        String strJson = preferences.getString(tag, null);
+        if (null == strJson) {
+            return locations;
+        }
+        Gson gson = new Gson();
+        locations = gson.fromJson(strJson, new TypeToken<List<String>>() {
+        }.getType());
+        Log.d("exhName","getKey:"+locations.size());
+        return locations;
+    }
+
 }
 

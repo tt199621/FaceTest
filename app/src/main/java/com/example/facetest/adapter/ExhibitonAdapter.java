@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.facetest.R;
-import com.example.facetest.activity.ExhibitionDetailsActivity;
+import com.example.facetest.activity_exhibition.ExhibitionDetailsActivity;
 import com.example.facetest.bean.ExhibitionBean;
 import com.robotemi.sdk.Robot;
 
@@ -44,7 +44,7 @@ public class ExhibitonAdapter extends RecyclerView.Adapter<ExhibitonAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
         holder.location_exh_details.setText(list.get(i).getLocation()+"");//展位名称
         Log.d("exhSrc",""+list.get(i).getSrc());
-        Glide.with(context).load(list.get(i).getSrc()).placeholder(R.mipmap.ic_launcher).into(holder.image_item_exh);//展位图片
+        Glide.with(context).load(list.get(i).getSrc()).placeholder(R.drawable.screensaver1).into(holder.image_item_exh);//展位图片
         holder.thisView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

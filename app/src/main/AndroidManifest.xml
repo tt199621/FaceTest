@@ -14,30 +14,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.GuideActivity"></activity>
-        <activity android:name=".activity.ExhibitionDetailsActivity" />
-        <activity android:name=".activity.SettingExhDetailsActivity" />
-        <activity android:name=".activity.SettingExhibitonActivity" />
+        <activity android:name=".activity_exhibition.GuideActivity"></activity>
+        <activity android:name=".activity_exhibition.ExhibitionDetailsActivity" />
+        <activity android:name=".activity_exhibition.SettingExhDetailsActivity" />
+        <activity android:name=".activity_exhibition.SettingExhibitonActivity" />
         <activity
-            android:name=".activity.ModifyPassword"
+            android:name=".activity_exhibition.ModifyPassword"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".activity_exhibition.SettingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.PassWordActivity"
+            android:name=".activity_exhibition.PassWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ExhibitionItemActivity"
+            android:name=".activity_exhibition.ExhibitionItemActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.WorkModelActivity"
+            android:name=".activity_work.WorkModelActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ExhibitionModeActivity"
+            android:name=".activity_exhibition.ExhibitionModeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity_exhibition.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

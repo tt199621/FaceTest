@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/work_bg"
     android:layout_height="match_parent"
-    tools:context=".activity.WorkModelActivity">
+    tools:context=".activity_work.WorkModelActivity">
 
     <ImageView
         android:id="@+id/data_plan"

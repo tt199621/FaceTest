@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.Manifest;
 import android.content.Intent;
@@ -39,6 +39,7 @@ import com.example.facetest.Arcface.util.ConfigUtil;
 import com.example.facetest.Arcface.util.DrawHelper;
 import com.example.facetest.Arcface.widget.FaceRectView;
 import com.example.facetest.R;
+import com.example.facetest.activity_work.WorkModelActivity;
 import com.example.facetest.util.AlertDialogUtils;
 import com.example.facetest.util.GlideImageLoader;
 import com.robotemi.sdk.NlpResult;
@@ -343,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
 
                             @Override
                             public void onNegativeButtonClick(AlertDialog dialog) {
-                                startActivity(new Intent(MainActivity.this,WorkModelActivity.class));
+                                startActivity(new Intent(MainActivity.this, WorkModelActivity.class));
                                 finish();
                                 dialog.dismiss();
                             }

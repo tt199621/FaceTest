@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,12 +7,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.SaveData;
 
-public class ModifyPassword extends AppCompatActivity implements View.OnClickListener {
+public class ModifyPassword extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private EditText modify_password1,modify_password2;
     private Button modify_commit;

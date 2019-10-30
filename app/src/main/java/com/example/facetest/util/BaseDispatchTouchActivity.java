@@ -7,8 +7,11 @@ import android.view.MotionEvent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.robotemi.sdk.NlpResult;
+import com.robotemi.sdk.Robot;
 
-public class BaseDispatchTouchActivity extends AppCompatActivity{
+
+public class BaseDispatchTouchActivity extends AppCompatActivity implements Robot.NlpListener {
     private CountTimer countTimerView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,5 +59,13 @@ public class BaseDispatchTouchActivity extends AppCompatActivity{
 
         super.onResume();
         timeStart();
+    }
+
+    @Override
+    public void onNlpCompleted(NlpResult nlpResult) {
+        switch (nlpResult.action){
+            case "q1":
+                break;
+        }
     }
 }

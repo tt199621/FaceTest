@@ -15,10 +15,22 @@
         android:layout_marginTop="65dp"
         app:srcCompat="@drawable/return_d" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_setting_exhibition"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_setting_exhibition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"/>
+
+        <ImageView
+            android:id="@+id/add_location"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="30dp"
+            android:src="@drawable/add"/>
+    </FrameLayout>
 
 </LinearLayout>

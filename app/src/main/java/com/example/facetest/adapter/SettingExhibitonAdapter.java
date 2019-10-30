@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facetest.R;
-import com.example.facetest.activity.SettingExhDetailsActivity;
+import com.example.facetest.activity_exhibition.SettingExhDetailsActivity;
+import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 
 import java.util.List;
@@ -24,6 +24,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
     List<String> locations;
     Robot robot=Robot.getInstance();
     public static String exhName="";//展位名称
+    private ListDataSave save;
 
     public SettingExhibitonAdapter(Context context, List<String> locations) {
         this.context = context;
@@ -40,6 +41,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
+        save=new ListDataSave(context,"location");
         holder.text_setting_exhbition.setText(locations.get(i)+"");
         holder.thisView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +53,9 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
         holder.remove_exhbition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "厂家暂未提供接口", Toast.LENGTH_SHORT).show();
+                locations.remove(i);
+                save.setLocation("location_order",locations);
+                notifyDataSetChanged();
             }
         });
     }

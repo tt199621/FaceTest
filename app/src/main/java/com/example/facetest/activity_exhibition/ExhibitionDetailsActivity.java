@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.os.Bundle;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,17 +8,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
 import com.example.facetest.adapter.SettingExhibitonAdapter;
 import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingExhDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingExhDetailsActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private TextView exh_name;
     private EditText setting_text,setting_speak,setting_src;

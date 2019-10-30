@@ -1,10 +1,9 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +11,7 @@ import com.example.facetest.R;
 import com.example.facetest.adapter.ExhibitonAdapter;
 import com.example.facetest.bean.ExhibitionBean;
 import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -24,7 +24,7 @@ import java.util.Random;
 /**
  * 展位列表页
  */
-public class ExhibitionItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class ExhibitionItemActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private ImageView finish_exhibition_details;
     private RecyclerView recycler_exh_details;
@@ -61,8 +61,7 @@ public class ExhibitionItemActivity extends AppCompatActivity implements View.On
 
     public void initData(){
         locations=new ArrayList<>();
-        locations=robot.getLocations();
-        locations.remove("home base");
+        locations=save.getLocation("location_order");
         beans.clear();
         for (int i = 0; i < locations.size(); i++) {
             List<LocationBean> data=save.getDataList(locations.get(i));

@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.SaveData;
 
-public class PassWordActivity extends AppCompatActivity implements View.OnClickListener {
+public class PassWordActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     TextView inputpwd;
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,buttondel,enterbtn;

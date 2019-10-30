@@ -1,14 +1,14 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.facetest.R;
 import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -20,7 +20,7 @@ import java.util.Random;
 /**
  * 展厅模式
  */
-public class ExhibitionModeActivity extends AppCompatActivity implements View.OnClickListener {
+public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private Robot robot;
     String[] randomPlay={"我已经进入展厅模式啦，要来参观下展厅吗",
@@ -66,19 +66,23 @@ public class ExhibitionModeActivity extends AppCompatActivity implements View.On
             case R.id.exhibition://导览介绍
                 Boolean intentCode=true;
                 locations=new ArrayList<>();
-                locations=robot.getLocations();
-                locations.remove("home base");
                 save=new ListDataSave(this,"location");
+                locations=save.getLocation("location_order");
+                if(locations==null||locations.size()==0){
+                    Toast.makeText(this, "您还未添加展位", Toast.LENGTH_SHORT).show();
+                }else {
                 for (int i = 0; i < locations.size(); i++) {
                     List<LocationBean> data = save.getDataList(locations.get(i));
                     if (data.size() == 0) {
-                        robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", false));
+                        robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
                         intentCode=false;
                         startActivity(new Intent(this, SettingExhibitonActivity.class));
                     }
                 }
-                if (intentCode==true)
-                startActivity(new Intent(this,GuideActivity.class));
+                if (intentCode==true){
+                    startActivity(new Intent(this,GuideActivity.class));
+                    }
+            }
                 break;
             case R.id.conf_btn://设置
                 startActivity(new Intent(this,PassWordActivity.class));

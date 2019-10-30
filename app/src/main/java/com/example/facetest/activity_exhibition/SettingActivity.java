@@ -1,4 +1,4 @@
-package com.example.facetest.activity;
+package com.example.facetest.activity_exhibition;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 
 /**
  * 设置页面
  */
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private ImageView finish_setting,home_setting;
     private TextView setting_welcom_words,setting_activities,setting_exhibition_introduce,setting_answer,setting_data_plan,setting_password,setting_default_mode;
