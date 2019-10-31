@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.facetest.R;
+import com.example.facetest.activity_setting.SettingExhibitonActivity;
 import com.example.facetest.bean.LocationBean;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
@@ -93,6 +94,7 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
                 break;
         }
     }
+
 
     @Override
     public void onBackPressed() {

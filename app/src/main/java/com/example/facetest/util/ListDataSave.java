@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.facetest.bean.LocationBean;
+import com.example.facetest.bean.SpeakBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,7 +59,7 @@ public class ListDataSave {
     }
 
     /**
-     *
+     *设置位置顺序
      * @param tag=key
      * @param locations=排序后的点位
      */
@@ -86,6 +87,37 @@ public class ListDataSave {
         Log.d("exhName","getKey:"+locations.size());
         return locations;
     }
+
+
+    /**
+     * 设置业务问答
+     * @param tag
+     * @param datalist
+     */
+    public  void setSpeakData(String tag, List<SpeakBean> datalist) {
+        if (null == datalist || datalist.size() <= 0)
+            return;
+        Log.d("exhName","setKey:"+ tag);
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
+        editor.putString(tag, strJson);
+        editor.commit();
+    }
+
+    public  List<SpeakBean> getSpeakData(String tag) {
+        List<SpeakBean> datalist=new ArrayList<>();
+        Log.d("exhName","getKey:"+ tag);
+        String strJson = preferences.getString(tag, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<SpeakBean>>() {
+        }.getType());
+        return datalist;
+    }
+
 
 }
 

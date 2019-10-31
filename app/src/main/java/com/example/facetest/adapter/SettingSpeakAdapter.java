@@ -12,23 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facetest.R;
-import com.example.facetest.activity_setting.SettingExhDetailsActivity;
+import com.example.facetest.activity_setting.SettingSpeakDetailsActivity;
+import com.example.facetest.bean.SpeakBean;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 
 import java.util.List;
 
-public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibitonAdapter.ViewHolder> {
+public class SettingSpeakAdapter extends RecyclerView.Adapter<SettingSpeakAdapter.ViewHolder> {
 
     Context context;
-    List<String> locations;
+    List<SpeakBean> list;
     Robot robot=Robot.getInstance();
-    public static String exhName="";//展位名称
+    public static String questions;//问题
     private ListDataSave save;
 
-    public SettingExhibitonAdapter(Context context, List<String> locations) {
+    public SettingSpeakAdapter(Context context, List<SpeakBean> list) {
         this.context = context;
-        this.locations = locations;
+        this.list = list;
     }
 
     @NonNull
@@ -41,20 +42,20 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
-        save=new ListDataSave(context,"location");
-        holder.text_setting_exhbition.setText(locations.get(i)+"");
+        save=new ListDataSave(context,"speakData");
+        holder.text_setting_exhbition.setText(list.get(i).getQuestion()+"");
         holder.thisView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                exhName=locations.get(i);
-                context.startActivity(new Intent(context, SettingExhDetailsActivity.class));
+                questions=list.get(i).getQuestion();
+                context.startActivity(new Intent(context, SettingSpeakDetailsActivity.class));
             }
         });
         holder.remove_exhbition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locations.remove(i);
-                save.setLocation("location_order",locations);
+                list.remove(i);
+                save.setSpeakData("speak",list);
                 notifyDataSetChanged();
             }
         });
@@ -62,7 +63,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
 
     @Override
     public int getItemCount() {
-        return locations.size();
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +74,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
             super(itemView);
             thisView=itemView;
             text_setting_exhbition=itemView.findViewById(R.id.text_setting_exhbition);
-            remove_exhbition=itemView.findViewById(R.id.remove_exhbition);
+            remove_exhbition=itemView.findViewById(R.id.remove_exhbition);//删除语音
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.facetest.activity_exhibition;
+package com.example.facetest.activity_setting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.facetest.R;
+import com.example.facetest.activity_exhibition.MainActivity;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 
 /**
@@ -56,6 +57,7 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
                 startActivity(new Intent(this,SettingExhibitonActivity.class));
                 break;
             case R.id.setting_answer://设置业务问答
+                startActivity(new Intent(this,SettingSpeakActivity.class));
                 break;
             case R.id.setting_data_plan://设置日程安排
                 break;
@@ -68,7 +70,7 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
                 finish();
                 break;
             case R.id.home_setting:
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
         }

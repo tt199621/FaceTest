@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/title_back"/>
+
+    <TextView
+        android:id="@+id/speak_details_question"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/longbox"
+        android:text="qx"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/speak_details_anwser"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:hint="请输入回答内容"
+        android:textColorHint="@color/black"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+
+    <Button
+        android:id="@+id/commit_speak_details"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/longbox"
+        android:layout_gravity="center"
+        android:text="确认"
+        android:textSize="30dp"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

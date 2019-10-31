@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.facetest.R;
+import com.example.facetest.activity_setting.SettingActivity;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.SaveData;
 
@@ -111,7 +112,7 @@ public class PassWordActivity extends BaseDispatchTouchActivity implements View.
             case R.id.enterbtn:
                 if (password!=null){
                     if (password.replaceAll("null","").equals(SaveData.getGuideData(this,"password"))){
-                        startActivity(new Intent(this,SettingActivity.class));
+                        startActivity(new Intent(this, SettingActivity.class));
                         finish();
                     }else {
                         Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();

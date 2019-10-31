@@ -420,8 +420,13 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
 
     @Override
     public void onRobotReady(boolean b) {
-        if (b) {
-            Log.d(TAG,"onRobotReady");
+        if (b){
+            try {
+                final ActivityInfo activityInfo = getPackageManager().getActivityInfo(getComponentName(), PackageManager.GET_META_DATA);
+                Robot.getInstance().onStart(activityInfo);
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     @Override

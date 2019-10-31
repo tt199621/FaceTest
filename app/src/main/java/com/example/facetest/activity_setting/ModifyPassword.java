@@ -1,4 +1,4 @@
-package com.example.facetest.activity_exhibition;
+package com.example.facetest.activity_setting;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,9 @@ import com.example.facetest.R;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.SaveData;
 
+/**
+ * 修改密码
+ */
 public class ModifyPassword extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private EditText modify_password1,modify_password2;
