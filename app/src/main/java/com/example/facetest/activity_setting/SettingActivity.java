@@ -52,6 +52,7 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
             case R.id.setting_welcom_words://设置迎宾词
                 break;
             case R.id.setting_activities://设置活动介绍
+                startActivity(new Intent(this,SettingActivitiesActivity.class));
                 break;
             case R.id.setting_exhibition_introduce://设置展厅介绍
                 startActivity(new Intent(this,SettingExhibitonActivity.class));

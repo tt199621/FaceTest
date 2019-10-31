@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         work_btn.setOnClickListener(this);
         exhibition_btn.setOnClickListener(this);
         setBanner();
+        List<String> stringList=new ArrayList<>();
+        String qx;
     }
 
 
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         path.add(R.drawable.screensaver10);
         path.add(R.drawable.screensaver11);
         path.add(R.drawable.screensaver12);
-        path.add(R.drawable.screensaver13);
+        /*path.add(R.drawable.screensaver13);
         path.add(R.drawable.screensaver14);
         path.add(R.drawable.screensaver15);
         path.add(R.drawable.screensaver16);
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         path.add(R.drawable.screensaver18);
         path.add(R.drawable.screensaver19);
         path.add(R.drawable.screensaver20);
-        path.add(R.drawable.screensaver21);
+        path.add(R.drawable.screensaver21);*/
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合

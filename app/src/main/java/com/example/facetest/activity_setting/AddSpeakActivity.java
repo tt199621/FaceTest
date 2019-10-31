@@ -66,7 +66,7 @@ public class AddSpeakActivity extends BaseDispatchTouchActivity implements View.
             if (speak_code.getText().toString().substring(0,1).equals("q")){
                 speakBean.setQuestion(speak_code.getText().toString());
                 if (speak_content.getText().toString().equals("")){
-                    speakBean.setAnswer("还未设置回答");
+                    speakBean.setAnswer("这个问题我暂时解答不了");
                 }else {
                     speakBean.setAnswer(speak_content.getText().toString());
                 }
