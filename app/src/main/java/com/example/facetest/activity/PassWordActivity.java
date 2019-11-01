@@ -1,4 +1,4 @@
-package com.example.facetest.activity_exhibition;
+package com.example.facetest.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

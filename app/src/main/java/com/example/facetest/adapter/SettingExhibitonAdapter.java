@@ -2,6 +2,7 @@ package com.example.facetest.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
             @Override
             public void onClick(View view) {
                 locations.remove(i);
+                Log.d("locationSize",""+locations.size());
                 save.setLocation("location_order",locations);
                 notifyDataSetChanged();
             }

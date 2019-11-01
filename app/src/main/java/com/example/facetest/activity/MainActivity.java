@@ -1,4 +1,4 @@
-package com.example.facetest.activity_exhibition;
+package com.example.facetest.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -39,6 +39,7 @@ import com.example.facetest.Arcface.util.ConfigUtil;
 import com.example.facetest.Arcface.util.DrawHelper;
 import com.example.facetest.Arcface.widget.FaceRectView;
 import com.example.facetest.R;
+import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
 import com.example.facetest.activity_work.WorkModelActivity;
 import com.example.facetest.util.AlertDialogUtils;
 import com.example.facetest.util.GlideImageLoader;
@@ -339,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                         utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
                             @Override
                             public void onPositiveButtonClick(AlertDialog dialog) {
-                                startActivity(new Intent(MainActivity.this,ExhibitionModeActivity.class));
+                                startActivity(new Intent(MainActivity.this, ExhibitionModeActivity.class));
                                 finish();
                                 dialog.dismiss();
                             }

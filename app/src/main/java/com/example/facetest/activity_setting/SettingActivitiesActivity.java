@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 
 /**
  * 设置活动介绍
  */
-public class SettingActivitiesActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingActivitiesActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private ImageView finish;
     private TextView a1,a2,a3,a4,a5,a6,a7,a8,a9,a10;

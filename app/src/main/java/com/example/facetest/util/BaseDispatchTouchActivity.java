@@ -1,5 +1,6 @@
 package com.example.facetest.util;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -7,6 +8,7 @@ import android.view.MotionEvent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.facetest.activity.ShowActActivity;
 import com.example.facetest.bean.SpeakBean;
 import com.robotemi.sdk.NlpResult;
 import com.robotemi.sdk.Robot;
@@ -19,7 +21,8 @@ import java.util.List;
 public class BaseDispatchTouchActivity extends AppCompatActivity implements Robot.NlpListener {
     private CountTimer countTimerView;
     List<SpeakBean> datas;
-    ListDataSave save;
+    ListDataSave save,activity;
+    List<String> actList;
     Robot robot=Robot.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,13 +76,32 @@ public class BaseDispatchTouchActivity extends AppCompatActivity implements Robo
 
     @Override
     public void onNlpCompleted(NlpResult nlpResult) {
+        activity=new ListDataSave(this,"activityData");
         save=new ListDataSave(this,"speakData");
         datas=new ArrayList<>();
-        datas=save.getSpeakData("speak");
-        for (int i = 0; i < datas.size(); i++) {
-            if (nlpResult.action.equals(datas.get(i).getQuestion())){
-                robot.speak(TtsRequest.create(datas.get(i).getAnswer(),false));
+        actList=new ArrayList<>();
+
+        //活动介绍回调ax
+        if (nlpResult.action.substring(0,1).equals("a")){
+            actList=activity.getLocation(nlpResult.action);
+            if (actList.size()!=0){
+                Intent intent=new Intent(this,ShowActActivity.class);
+                intent.putStringArrayListExtra("showData", (ArrayList<String>) actList);
+                startActivity(intent);
             }
         }
+
+        //业务问答回调qx
+        if (nlpResult.action.substring(0,1).equals("q")){
+            datas=save.getSpeakData("speak");
+            for (int i = 0; i < datas.size(); i++) {
+                if (nlpResult.action.equals(datas.get(i).getQuestion())){
+                    robot.speak(TtsRequest.create(datas.get(i).getAnswer(),false));
+                }
+            }
+        }
+
     }
+
+
 }

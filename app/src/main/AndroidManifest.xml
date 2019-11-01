@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_setting.SettingActiveDetailsActivity"></activity>
+        <activity android:name=".activity.ShowActActivity"></activity>
+        <activity android:name=".activity_setting.SettingActiveDetailsActivity" />
         <activity android:name=".activity_setting.SettingActivitiesActivity" />
         <activity android:name=".activity_setting.SettingSpeakDetailsActivity" />
         <activity android:name=".activity_setting.AddSpeakActivity" />
@@ -30,7 +31,7 @@
             android:name=".activity_setting.SettingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity_exhibition.PassWordActivity"
+            android:name=".activity.PassWordActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity_exhibition.ExhibitionItemActivity"
@@ -42,7 +43,7 @@
             android:name=".activity_exhibition.ExhibitionModeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity_exhibition.MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

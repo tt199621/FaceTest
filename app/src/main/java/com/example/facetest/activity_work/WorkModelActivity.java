@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.facetest.R;
-import com.example.facetest.activity_exhibition.MainActivity;
+import com.example.facetest.activity.MainActivity;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 
 public class WorkModelActivity extends BaseDispatchTouchActivity implements View.OnClickListener {

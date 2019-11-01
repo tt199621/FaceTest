@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.facetest.R;
-import com.example.facetest.activity_exhibition.MainActivity;
+import com.example.facetest.activity.MainActivity;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 
 /**
