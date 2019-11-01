@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ShowActActivity"></activity>
+        <activity android:name=".activity_setting.SettingWelcomWordsActivity"></activity>
+        <activity android:name=".activity.ShowActActivity" />
         <activity android:name=".activity_setting.SettingActiveDetailsActivity" />
         <activity android:name=".activity_setting.SettingActivitiesActivity" />
         <activity android:name=".activity_setting.SettingSpeakDetailsActivity" />

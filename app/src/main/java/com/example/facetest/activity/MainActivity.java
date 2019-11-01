@@ -43,6 +43,7 @@ import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
 import com.example.facetest.activity_work.WorkModelActivity;
 import com.example.facetest.util.AlertDialogUtils;
 import com.example.facetest.util.GlideImageLoader;
+import com.example.facetest.util.SaveData;
 import com.robotemi.sdk.NlpResult;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -331,11 +332,18 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                     if (drawInfoList.size()>0&&ifSpeak){
                         mTimer.start();
                         Robot robotW=Robot.getInstance();
-                        robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
+                        String welcomWords=SaveData.getGuideData(MainActivity.this,"welcom");
+                        utils = AlertDialogUtils.getInstance();
+                        if (welcomWords.equals("")){
+                            robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
+                            utils.showConfirmDialog(MainActivity.this, "您好，有什么可以帮您的？");
+                        }else {
+                            robotW.speak(TtsRequest.create(welcomWords,false));
+                            utils.showConfirmDialog(MainActivity.this, welcomWords);
+                        }
                         ifSpeak=false;
 
-                        utils = AlertDialogUtils.getInstance();
-                        utils.showConfirmDialog(MainActivity.this, "您好，有什么可以帮您的？");
+
                         //按钮点击监听
                         utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
                             @Override

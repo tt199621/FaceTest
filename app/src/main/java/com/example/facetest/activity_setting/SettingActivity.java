@@ -50,6 +50,7 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.setting_welcom_words://设置迎宾词
+                startActivity(new Intent(this,SettingWelcomWordsActivity.class));
                 break;
             case R.id.setting_activities://设置活动介绍
                 startActivity(new Intent(this,SettingActivitiesActivity.class));

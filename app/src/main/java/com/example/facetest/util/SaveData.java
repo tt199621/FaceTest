@@ -26,5 +26,4 @@ public class SaveData {
         return sp.getString(key, "");
     }
 
-
 }
