@@ -7,12 +7,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.facetest.R;
+import com.example.facetest.activity.ContactsActivity;
 import com.example.facetest.activity.MainActivity;
 import com.example.facetest.activity.PassWordActivity;
 import com.example.facetest.activity_setting.SettingExhibitonActivity;
+import com.example.facetest.activity_work.WorkModelActivity;
 import com.example.facetest.bean.LocationBean;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
+import com.example.facetest.util.PackageName;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
 
@@ -32,7 +35,7 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
     private List<String> locations;
     private ListDataSave save;
 
-    private ImageView introduction,exhibition,returnhome,switch_btn,conf_btn;
+    private ImageView introduction,exhibition,returnhome,switch_btn,conf_btn,contacts,weatherbtn,news,imageView4,music_qq;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,16 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
         returnhome=findViewById(R.id.returnhome);//返回屏保页
         switch_btn=findViewById(R.id.switch_btn);//切换模式
         conf_btn=findViewById(R.id.conf_btn);//设置
+        contacts=findViewById(R.id.contacts);//联系人
+        contacts.setOnClickListener(this);
+        weatherbtn=findViewById(R.id.weatherbtn);//天气
+        weatherbtn.setOnClickListener(this);
+        news=findViewById(R.id.news);//新闻
+        news.setOnClickListener(this);
+        imageView4=findViewById(R.id.imageView4);//体育
+        imageView4.setOnClickListener(this);
+        music_qq=findViewById(R.id.music_qq);//音乐
+        music_qq.setOnClickListener(this);
         conf_btn.setOnClickListener(this);
         switch_btn.setOnClickListener(this);
         returnhome.setOnClickListener(this);
@@ -94,11 +107,36 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
             case R.id.conf_btn://设置
                 startActivity(new Intent(this, PassWordActivity.class));
                 break;
-            case R.id.returnhome:
+            case R.id.returnhome://回主页
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
+            case R.id.switch_btn://切换模式
+                startActivity(new Intent(this, WorkModelActivity.class));
+                finish();
+                break;
+            case R.id.contacts://联系人
+                startActivity(new Intent(this, ContactsActivity.class));
+                break;
+            case R.id.weatherbtn://天气
+                openOtherApp(PackageName.weather);
+                break;
+            case R.id.news://新闻
+                openOtherApp(PackageName.news);
+                break;
+            case R.id.imageView4://闲聊
+                openOtherApp(PackageName.chat);
+                break;
+            case R.id.music_qq://音乐
+                openOtherApp(PackageName.music);
+                break;
         }
+    }
+
+    //打开外部APP
+    private void openOtherApp(String packagename) {
+        Intent intent = getPackageManager().getLaunchIntentForPackage(packagename);
+        startActivity(intent);
     }
 
 

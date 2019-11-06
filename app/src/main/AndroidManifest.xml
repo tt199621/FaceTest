@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.facetest">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 脸部识别权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission
+        android:name="android.permission.SET_TIME"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_setting.SettingWelcomWordsActivity"></activity>
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity android:name=".activity_setting.AddAlarmActivity" />
+        <activity android:name=".activity_setting.SettingAlarmActivity" />
+        <activity android:name=".activity.ContactsActivity" />
+        <activity android:name=".activity_setting.SettingWelcomWordsActivity" />
         <activity android:name=".activity.ShowActActivity" />
         <activity android:name=".activity_setting.SettingActiveDetailsActivity" />
         <activity android:name=".activity_setting.SettingActivitiesActivity" />

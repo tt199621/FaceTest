@@ -23,7 +23,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
 
     Context context;
     List<String> locations;
-    Robot robot=Robot.getInstance();
+    Robot robot;
     public static String exhName="";//展位名称
     private ListDataSave save;
 
@@ -42,6 +42,7 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int i) {
+        robot=Robot.getInstance();
         save=new ListDataSave(context,"location");
         holder.text_setting_exhbition.setText(locations.get(i)+"");
         holder.thisView.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +55,9 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
         holder.remove_exhbition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("locationSize",""+locations.get(i));
+                robot.deleteLocation(locations.get(i));
                 locations.remove(i);
-                Log.d("locationSize",""+locations.size());
                 save.setLocation("location_order",locations);
                 notifyDataSetChanged();
             }

@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         work_btn.setOnClickListener(this);
         exhibition_btn.setOnClickListener(this);
         setBanner();
-        List<String> stringList=new ArrayList<>();
-        String qx;
     }
 
 

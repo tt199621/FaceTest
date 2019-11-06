@@ -48,7 +48,7 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
     }
 
     @Override
-    public void onGoToLocationStatusChanged(String s, String s1) {
+    public void onGoToLocationStatusChanged(String s, String s1, int i, String s2) {
         switch (s1){
             case "complete":
                 if (code==true){
@@ -67,6 +67,5 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
                 break;
         }
     }
-
 
 }

@@ -138,7 +138,7 @@
         app:layout_constraintVertical_bias="0.292" />
 
     <ImageView
-        android:id="@+id/sports_work"
+        android:id="@+id/chat_work"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -151,7 +151,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.511"
-        app:srcCompat="@drawable/sports_d" />
+        app:srcCompat="@drawable/chat" />
 
     <TextView
         android:id="@+id/sports_text"
@@ -161,13 +161,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="体育"
+        android:text="闲聊"
         android:textColor="@color/colorFloatingButton_press"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.665"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sports_work"
+        app:layout_constraintTop_toBottomOf="@+id/chat_work"
         app:layout_constraintVertical_bias="0.25" />
 
     <ImageView
@@ -207,7 +207,7 @@
         android:id="@+id/returnhome_work"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="66dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toStartOf="@+id/switch_btn_work"
         app:layout_constraintTop_toTopOf="parent"
@@ -217,7 +217,7 @@
         android:id="@+id/switch_btn_work"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="66dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toStartOf="@+id/conf_btn_work"
         app:layout_constraintTop_toTopOf="parent"
@@ -228,7 +228,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="66dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/configuration_d" />

@@ -123,7 +123,7 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
 
     //前往回调
     @Override
-    public void onGoToLocationStatusChanged(String s, String s1) {
+    public void onGoToLocationStatusChanged(String s, String s1, int i, String s2) {
         switch (s1){
             case "complete":
                 if (order<beans.size()) {
@@ -149,6 +149,7 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -165,5 +166,6 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
         timer.cancel();
         super.onPause();
     }
+
 
 }

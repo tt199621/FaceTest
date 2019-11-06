@@ -120,6 +120,7 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
                         Collections.swap(locations, i, i - 1);
                     }
                 }
+                //保存调整顺序后的位置
                 save.setLocation("location_order",locations);
                 adapter.notifyItemMoved(fromPosition, toPosition);
 /*                adapter=new SettingExhibitonAdapter(SettingExhibitonActivity.this,locations);

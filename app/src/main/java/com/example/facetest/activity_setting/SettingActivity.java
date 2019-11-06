@@ -62,6 +62,7 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
                 startActivity(new Intent(this,SettingSpeakActivity.class));
                 break;
             case R.id.setting_data_plan://设置日程安排
+                startActivity(new Intent(this,SettingAlarmActivity.class));
                 break;
             case R.id.setting_password://设置口令
                 startActivity(new Intent(this,ModifyPassword.class));
