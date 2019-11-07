@@ -111,7 +111,38 @@ public class AlertDialogUtils {
 
     }
 
-    public void closeDialog(){
+    //自定义标题和按钮
+    public  void showDialog(Context context, String message,String cancel,String confirm) {
+        builder1 = new AlertDialog.Builder(context);
+        alertDialog = builder1.create();
+        alertDialog.show();
+
+        View view = View.inflate(context, R.layout.view_alert_dialog_confirm, null);
+        TextView tvMsg = (TextView) view.findViewById(R.id.tv_message_dialog);
+        TextView tvCancel = (TextView) view.findViewById(R.id.tv_cancel_dialog);
+        TextView tvConfirm = (TextView) view.findViewById(R.id.tv_confirm_dialog);
+
+        tvMsg.setText(message);
+        tvCancel.setText(cancel);
+        tvConfirm.setText(confirm);
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonClickListener.onNegativeButtonClick(alertDialog);
+            }
+        });
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonClickListener.onPositiveButtonClick(alertDialog);
+            }
+        });
+
+        alertDialog.getWindow().setContentView(view);
+
+    }
+
+    public static void closeDialog(){
         alertDialog.dismiss();
     }
 

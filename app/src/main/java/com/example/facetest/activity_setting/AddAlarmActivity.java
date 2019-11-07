@@ -19,11 +19,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
 import com.example.facetest.bean.AlarmBean;
 import com.example.facetest.receiver.AlarmReceiver;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -35,7 +34,7 @@ import java.util.List;
 /**
  * 设置闹钟详情页
  */
-public class AddAlarmActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class AddAlarmActivity extends BaseDispatchTouchActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private ImageView finish;
     private TextView add_alarm_time;

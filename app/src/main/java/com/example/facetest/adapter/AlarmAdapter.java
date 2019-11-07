@@ -101,7 +101,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                         alarm.cancel(sender);//取消闹钟
                         list.remove(i);
                         save.setAlarm("alarm",list);//删除数据库数据
-                        Toast.makeText(context, "删除成功"+i, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
                         notifyDataSetChanged();
                     }
                 });

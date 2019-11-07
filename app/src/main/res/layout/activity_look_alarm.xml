@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <include layout="@layout/title_back"/>
+    <TextView
+        android:id="@+id/typestr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorFloatingButton_press"
+        android:text="类型：xxxxxx"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/timestr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorFloatingButton_press"
+        android:text="时间：xxxxxx"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/addresstr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorFloatingButton_press"
+        android:text="地点：xxxxxxxxxxxx"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/remarksstr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorFloatingButton_press"
+        android:text="备注：xxxxxxxxxxxx"
+        android:textSize="35dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/snoozebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:text="5min后再提醒"
+            android:background="@drawable/frame" />
+
+        <Button
+            android:id="@+id/work_iknow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="30dp"
+            android:text="我知道了"
+            android:textColor="@color/white"
+            android:background="@drawable/frame" />
+    </LinearLayout>
+
+
+</LinearLayout>

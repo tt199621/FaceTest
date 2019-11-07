@@ -10,6 +10,7 @@ import com.example.facetest.activity.ContactsActivity;
 import com.example.facetest.activity.MainActivity;
 import com.example.facetest.activity.PassWordActivity;
 import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
+import com.example.facetest.activity_setting.SettingAlarmActivity;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.PackageName;
 import com.robotemi.sdk.Robot;
@@ -89,8 +90,7 @@ public class WorkModelActivity extends BaseDispatchTouchActivity implements View
                 startActivity(new Intent(this, PassWordActivity.class));
                 break;
             case R.id.data_plan://日程安排
-               /* startActivity(new Intent(this, SettingActivity.class));
-                finish();*/
+                startActivity(new Intent(this, SettingAlarmActivity.class));
                 break;
             case R.id.video_meeting://视频会议
                 startActivity(new Intent(this, ContactsActivity.class));

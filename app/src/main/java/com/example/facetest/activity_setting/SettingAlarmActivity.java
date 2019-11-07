@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facetest.R;
 import com.example.facetest.adapter.AlarmAdapter;
 import com.example.facetest.bean.AlarmBean;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * 设置闹钟列表页
  */
-public class SettingAlarmActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingAlarmActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private ImageView finish,setting_alarm_add;
     private RecyclerView recycler_setting_alarm;
@@ -60,7 +59,6 @@ public class SettingAlarmActivity extends AppCompatActivity implements View.OnCl
         super.onResume();
         alarmBeans.clear();
         alarmBeans=save.getAlarm("alarm");
-        Toast.makeText(this, ""+alarmBeans.size(), Toast.LENGTH_SHORT).show();
         AlarmAdapter adapter=new AlarmAdapter(this,alarmBeans);
         recycler_setting_alarm.setAdapter(adapter);
         recycler_setting_alarm.setLayoutManager(linearLayoutManager);

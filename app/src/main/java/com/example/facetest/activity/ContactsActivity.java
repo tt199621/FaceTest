@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facetest.R;
 import com.example.facetest.adapter.ContactsAdapter;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 
 //联系人列表
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends BaseDispatchTouchActivity {
 
     private ImageView finish;
     private RecyclerView recyclerView;

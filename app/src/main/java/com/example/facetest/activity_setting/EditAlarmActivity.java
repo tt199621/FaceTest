@@ -16,12 +16,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.facetest.R;
 import com.example.facetest.adapter.AlarmAdapter;
 import com.example.facetest.bean.AlarmBean;
 import com.example.facetest.receiver.AlarmReceiver;
+import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -33,7 +32,7 @@ import java.util.List;
 /**
  * 编辑闹钟
  */
-public class EditAlarmActivity extends AppCompatActivity implements View.OnClickListener{
+public class EditAlarmActivity extends BaseDispatchTouchActivity implements View.OnClickListener{
 
     private ImageView finish;
     private TextView edit_alarm_time,type;
@@ -154,9 +153,10 @@ public class EditAlarmActivity extends AppCompatActivity implements View.OnClick
                     AlarmBean alarmBean=new AlarmBean();
                     alarmBean.setAction(AlarmAdapter.action);//action标识
                     alarmBean.setType(""+AlarmAdapter.type);//类型
-                    alarmBean.setTime(""+edit_alarm_time.getText().toString());//时间
+                    alarmBean.setTime(""+edit_alarm_time.getText().toString());//展示时间文字
                     alarmBean.setLocation(""+edit_alarm_location.getText().toString());//地点
                     alarmBean.setTips(""+edit_alarm_tips.getText().toString());//备注
+                    alarmBean.setStartTime(AlarmAdapter.startTime);//响铃时间
                     alarmBeans.clear();
                     alarmBeans=save.getAlarm("alarm");
                     //移除之前的闹钟
