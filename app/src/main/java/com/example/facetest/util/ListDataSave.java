@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.facetest.bean.AlarmBean;
 import com.example.facetest.bean.LocationBean;
 import com.example.facetest.bean.SpeakBean;
 import com.google.gson.Gson;
@@ -116,6 +117,42 @@ public class ListDataSave {
         datalist = gson.fromJson(strJson, new TypeToken<List<SpeakBean>>() {
         }.getType());
         return datalist;
+    }
+
+
+    /**
+     * 保存闹钟实体集
+     * @param tag=key
+     * @param datalist
+     */
+    public  void setAlarm(String tag, List<AlarmBean> datalist) {
+        if (null == datalist || datalist.size() <= 0)
+            return;
+        Log.d("exhName","setKey:"+ tag);
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
+        editor.putString(tag, strJson);
+        editor.commit();
+    }
+
+    /**
+     * 获取闹钟实体集
+     * @param tag=key
+     * @return
+     */
+    public  List<AlarmBean> getAlarm(String tag) {
+        List<AlarmBean> datalist=new ArrayList<>();
+        Log.d("exhName","getKey:"+ tag);
+        String strJson = preferences.getString(tag, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<AlarmBean>>() {
+        }.getType());
+        return datalist;
+
     }
 
 

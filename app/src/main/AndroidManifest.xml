@@ -19,13 +19,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity_setting.EditAlarmActivity"></activity>
+
         <receiver
             android:name=".receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity android:name=".activity_setting.AddAlarmActivity" />
-        <activity android:name=".activity_setting.SettingAlarmActivity" />
+        <activity
+            android:name=".activity_setting.SettingAlarmActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".activity.ContactsActivity" />
         <activity android:name=".activity_setting.SettingWelcomWordsActivity" />
         <activity android:name=".activity.ShowActActivity" />

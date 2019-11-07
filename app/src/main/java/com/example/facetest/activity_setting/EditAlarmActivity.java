@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.facetest.R;
+import com.example.facetest.adapter.AlarmAdapter;
 import com.example.facetest.bean.AlarmBean;
 import com.example.facetest.receiver.AlarmReceiver;
 import com.example.facetest.util.ListDataSave;
@@ -33,17 +31,14 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * 设置闹钟详情页
+ * 编辑闹钟
  */
-public class AddAlarmActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class EditAlarmActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView finish;
-    private TextView add_alarm_time;
-    private Spinner add_alarm_spinner;
-    private EditText add_alarm_location,add_alarm_tips;
-    private Button save_alarm;
-    private String[] types={"工作","学习","私事","其他"};
-    private String type="工作";
+    private TextView edit_alarm_time,type;
+    private EditText edit_alarm_location,edit_alarm_tips;
+    private Button save_alarm_edit;
     private Robot robot=Robot.getInstance();
 
     private Calendar calendar;  //日期类
@@ -56,11 +51,12 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
 
     private ListDataSave save;
     private List<AlarmBean> alarmBeans;
+    private Boolean code=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_alarm);
+        setContentView(R.layout.activity_edit_alarm);
         initView();
     }
 
@@ -68,17 +64,18 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
         save=new ListDataSave(this,"alarmDB");
         alarmBeans=new ArrayList<>();
         finish=findViewById(R.id.finish);
-        add_alarm_spinner=findViewById(R.id.add_alarm_spinner);//类型选择
-        add_alarm_time=findViewById(R.id.add_alarm_time);//时间
-        add_alarm_time.setOnClickListener(this);
-        add_alarm_location=findViewById(R.id.add_alarm_location);//地点
-        add_alarm_tips=findViewById(R.id.add_alarm_tips);//备注
-        save_alarm=findViewById(R.id.save_alarm);//保存
+        edit_alarm_time=findViewById(R.id.edit_alarm_time);//时间
+        edit_alarm_time.setOnClickListener(this);
+        edit_alarm_location=findViewById(R.id.edit_alarm_location);//地点
+        edit_alarm_tips=findViewById(R.id.edit_alarm_tips);//备注
+        save_alarm_edit=findViewById(R.id.save_alarm_edit);//保存
+        type=findViewById(R.id.type);//类型
+        type.setText(AlarmAdapter.type);
+        edit_alarm_time.setText(AlarmAdapter.time);
+        edit_alarm_location.setText(AlarmAdapter.location);
+        edit_alarm_tips.setText(AlarmAdapter.tips);
         finish.setOnClickListener(this);
-        add_alarm_spinner.setOnItemSelectedListener(this);
-        save_alarm.setOnClickListener(this);
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,types);
-        add_alarm_spinner.setAdapter(adapter);
+        save_alarm_edit.setOnClickListener(this);
     }
 
 
@@ -89,7 +86,7 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
             case R.id.finish:
                 finish();
                 break;
-            case R.id.add_alarm_time://选择时间
+            case R.id.edit_alarm_time://选择时间
                 //实例化日期类
                 calendar = Calendar.getInstance();
                 Year = calendar.get(Calendar.YEAR);//获取当前年
@@ -105,13 +102,13 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
                         //设置文本显示内容
                         if (i<10&&i1>=10){
-                            add_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+"0"+i+":"+i1);
+                            edit_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+"0"+i+":"+i1);
                         }
                         if (i >= 10 && i1 < 10) {
-                            add_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+i+":"+"0"+i1);
+                            edit_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+i+":"+"0"+i1);
                         }
                         if (i>=10&&i1>=10){
-                            add_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+i+":"+i1);
+                            edit_alarm_time.setText(""+Year+"年"+month+"月"+day+"日   "+i+":"+i1);
                         }
                         hour=i;
                         minute=i1;
@@ -130,7 +127,7 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         //设置文本显示内容，i为年，i1为月，i2为日
-                        add_alarm_time.setText(""+i+"年"+(i1+1)+"月"+i2+"日   ");
+                        edit_alarm_time.setText(""+i+"年"+(i1+1)+"月"+i2+"日   ");
                         //以下赋值给全局变量，是为了后面的时间选择器，选择时间的时候不会获取不到日期！
                         Year=i;//年
                         month=i1+1;//月
@@ -138,59 +135,45 @@ public class AddAlarmActivity extends AppCompatActivity implements View.OnClickL
                     }
                 },Year,month-1,day).show();//记得使用show才能显示悬浮窗
                 break;
-            case R.id.save_alarm:
-                if (add_alarm_time.getText().toString().equals("")){
+            case R.id.save_alarm_edit:
+                if (edit_alarm_time.getText().toString().equals("")){
                     robot.speak(TtsRequest.create("时间不能为空",false));
                 }else {
                     Intent intent =new Intent(this, AlarmReceiver.class);
-                    intent.setAction(String.valueOf(0));
-                    PendingIntent sender= PendingIntent.getBroadcast(this, 0, intent, 0);
+                    intent.setAction(AlarmAdapter.action);
+                    PendingIntent sender= PendingIntent.getBroadcast(this, Integer.parseInt(AlarmAdapter.action), intent, 0);
                     AlarmManager alarm=(AlarmManager)getSystemService(ALARM_SERVICE);
-                    long mTimeInfo = calendar.getTimeInMillis();
-                    long actualTime = mTimeInfo > System.currentTimeMillis()
-                            ? mTimeInfo : mTimeInfo + ONE_DAY_TIME;
+                    long actualTime=0;
+                    if (code == true) {
+                        long mTimeInfo = calendar.getTimeInMillis();
+                        actualTime = mTimeInfo > System.currentTimeMillis()
+                                ? mTimeInfo : mTimeInfo + ONE_DAY_TIME;
+                    }else {
+                        actualTime= AlarmAdapter.startTime;
+                    }
                     AlarmBean alarmBean=new AlarmBean();
-                    alarmBean.setAction(intent.getAction());//action标识
-                    alarmBean.setType(""+type);//类型
-                    alarmBean.setTime(""+add_alarm_time.getText().toString());//时间
-                    alarmBean.setLocation(""+add_alarm_location.getText().toString());//地点
-                    alarmBean.setTips(""+add_alarm_tips.getText().toString());//备注
-                    alarmBean.setStartTime(actualTime);
+                    alarmBean.setAction(AlarmAdapter.action);//action标识
+                    alarmBean.setType(""+AlarmAdapter.type);//类型
+                    alarmBean.setTime(""+edit_alarm_time.getText().toString());//时间
+                    alarmBean.setLocation(""+edit_alarm_location.getText().toString());//地点
+                    alarmBean.setTips(""+edit_alarm_tips.getText().toString());//备注
                     alarmBeans.clear();
                     alarmBeans=save.getAlarm("alarm");
-                    //保存唯一标识的闹钟
+                    //移除之前的闹钟
                     for (int i = 0; i < alarmBeans.size(); i++) {
-                        Log.d("闹钟",alarmBeans.get(i).getAction());
                         if (alarmBean.getAction().equals(alarmBeans.get(i).getAction())){
-                            intent.setAction(String.valueOf(i+1));
-                            sender= PendingIntent.getBroadcast(this, i+1, intent, 0);
-                            alarmBean.setAction(String.valueOf(i+1));
+                            alarmBeans.remove(i);
                         }
                     }
                     alarm.set(AlarmManager.RTC_WAKEUP, actualTime, sender);//设置闹钟
                     Log.d("canlendar",""+actualTime+"----action: "+intent.getAction());
                     alarmBeans.add(alarmBean);
                     save.setAlarm("alarm",alarmBeans);//存入数据库
-                    Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch (adapterView.getId()){
-            case R.id.add_alarm_spinner:
-                type=adapterView.getItemAtPosition(i).toString();//类型
-                Log.d("Alarmtype",""+type);
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
 }
