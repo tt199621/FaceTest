@@ -58,7 +58,7 @@ public class AddBannerActivity extends BaseDispatchTouchActivity implements View
                 bannerBean.setSrc(""+input_src.getText().toString());
                 bannerBeans.add(bannerBean);
                 save.setBanners("banner",bannerBeans);
-                Toast.makeText(this, "添加成功"+bannerBean.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }
