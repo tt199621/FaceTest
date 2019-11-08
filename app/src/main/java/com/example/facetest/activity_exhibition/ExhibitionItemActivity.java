@@ -22,7 +22,7 @@ import java.util.Random;
 
 
 /**
- * 展位列表页
+ * 展位介绍页
  */
 public class ExhibitionItemActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 

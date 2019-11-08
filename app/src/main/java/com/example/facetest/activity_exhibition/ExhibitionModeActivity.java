@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.facetest.R;
 import com.example.facetest.activity.ContactsActivity;
@@ -77,7 +76,29 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.introduction://展位介绍
-                startActivity(new Intent(this, ExhibitionItemActivity.class));
+                Boolean Code=true;
+                locations=new ArrayList<>();
+                save=new ListDataSave(this,"location");
+                locations=save.getLocation("location_order");
+                if (robot.getLocations().size()==1){
+                    robot.speak(TtsRequest.create("请先添加位置",false));
+                }else {
+                    if(locations==null||locations.size()==0){
+                        robot.speak(TtsRequest.create("位置未添加到展位中",false));
+                    }else {
+                        for (int i = 0; i < locations.size(); i++) {
+                            List<LocationBean> data = save.getDataList(locations.get(i));
+                            if (data.size() == 0) {
+                                robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
+                                Code=false;
+                                startActivity(new Intent(this, SettingExhibitonActivity.class));
+                            }
+                        }
+                        if (Code==true){
+                            startActivity(new Intent(this, ExhibitionItemActivity.class));
+                        }
+                    }
+                }
                 break;
             case R.id.exhibition://导览介绍
                 Boolean intentCode=true;
@@ -85,10 +106,10 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
                 save=new ListDataSave(this,"location");
                 locations=save.getLocation("location_order");
                 if (robot.getLocations().size()==1){
-                    robot.speak(TtsRequest.create("请先添加展位",false));
+                    robot.speak(TtsRequest.create("请先添加位置",false));
                 }else {
                     if(locations==null||locations.size()==0){
-                        Toast.makeText(this, "您还未添加展位", Toast.LENGTH_SHORT).show();
+                        robot.speak(TtsRequest.create("位置未添加到展位中",false));
                     }else {
                         for (int i = 0; i < locations.size(); i++) {
                             List<LocationBean> data = save.getDataList(locations.get(i));
