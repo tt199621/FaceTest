@@ -51,6 +51,7 @@ public class EditAlarmActivity extends BaseDispatchTouchActivity implements View
     private ListDataSave save;
     private List<AlarmBean> alarmBeans;
     private Boolean code=false;
+    private long mTimeInfo=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +117,7 @@ public class EditAlarmActivity extends BaseDispatchTouchActivity implements View
                         calendar.set(Calendar.DAY_OF_MONTH, day);
                         calendar.set(Calendar.HOUR, hour);
                         calendar.set(Calendar.MINUTE, minute);
+                        code=true;
 
                     }
                 },hour,minute,false).show();//记得使用show才能显示！
@@ -142,13 +144,10 @@ public class EditAlarmActivity extends BaseDispatchTouchActivity implements View
                     intent.setAction(AlarmAdapter.action);
                     PendingIntent sender= PendingIntent.getBroadcast(this, Integer.parseInt(AlarmAdapter.action), intent, 0);
                     AlarmManager alarm=(AlarmManager)getSystemService(ALARM_SERVICE);
-                    long actualTime=0;
                     if (code == true) {
-                        long mTimeInfo = calendar.getTimeInMillis();
-                        actualTime = mTimeInfo > System.currentTimeMillis()
-                                ? mTimeInfo : mTimeInfo + ONE_DAY_TIME;
+                        mTimeInfo = calendar.getTimeInMillis();
                     }else {
-                        actualTime= AlarmAdapter.startTime;
+                        mTimeInfo= AlarmAdapter.startTime;
                     }
                     AlarmBean alarmBean=new AlarmBean();
                     alarmBean.setAction(AlarmAdapter.action);//action标识
@@ -165,8 +164,8 @@ public class EditAlarmActivity extends BaseDispatchTouchActivity implements View
                             alarmBeans.remove(i);
                         }
                     }
-                    alarm.set(AlarmManager.RTC_WAKEUP, actualTime, sender);//设置闹钟
-                    Log.d("canlendar",""+actualTime+"----action: "+intent.getAction());
+                    alarm.set(AlarmManager.RTC_WAKEUP, mTimeInfo, sender);//设置闹钟
+                    Log.d("canlendar",""+mTimeInfo+"----action: "+intent.getAction());
                     alarmBeans.add(alarmBean);
                     save.setAlarm("alarm",alarmBeans);//存入数据库
                     Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();

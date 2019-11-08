@@ -3,6 +3,7 @@ package com.example.facetest.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.facetest.activity_setting.ShowAlarmActivity;
 import com.example.facetest.bean.AlarmBean;
@@ -25,6 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         save=new ListDataSave(context,"alarmDB");
         alarmBeans=new ArrayList<>();
         alarmBeans=save.getAlarm("alarm");
+        Log.d("delayTime","action="+intent.getAction());
         for (int i = 0; i < alarmBeans.size(); i++) {
             if (intent.getAction().equals(alarmBeans.get(i).getAction())){
                 type=alarmBeans.get(i).getType();

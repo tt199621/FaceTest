@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,34 +61,40 @@ public class LookAlarmActivity extends BaseDispatchTouchActivity implements View
     }
 
     public void initData(){
-        typestr.setText(""+AlarmReceiver.type);
-        timestr.setText(""+AlarmReceiver.time);
-        addresstr.setText(""+AlarmReceiver.locations);
-        remarksstr.setText(""+AlarmReceiver.tips);
-        //实例化日期类
-        calendar = Calendar.getInstance();
-        Year = calendar.get(Calendar.YEAR);//获取当前年
-        month = calendar.get(Calendar.MONTH)+1;//获取月份，加1是因为月份是从0开始计算的
-        day = calendar.get(Calendar.DATE);//获取日
-        hour = calendar.get(Calendar.HOUR_OF_DAY);//获取小时
-        minute = calendar.get(Calendar.MINUTE);//获取分钟
+        typestr.setText("类型："+AlarmReceiver.type);
+        timestr.setText("时间："+AlarmReceiver.time);
+        addresstr.setText("地址："+AlarmReceiver.locations);
+        remarksstr.setText("备注："+AlarmReceiver.tips);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.snoozebtn://五分钟后提醒
+                //实例化日期类
+                calendar = Calendar.getInstance();
+                Year = calendar.get(Calendar.YEAR);//获取当前年
+                month = calendar.get(Calendar.MONTH)+1;//获取月份，加1是因为月份是从0开始计算的
+                day = calendar.get(Calendar.DATE);//获取日
+                hour = calendar.get(Calendar.HOUR_OF_DAY);//获取小时
+                minute = calendar.get(Calendar.MINUTE);//获取分钟
+                calendar.set(Calendar.YEAR,Year);
+                calendar.set(Calendar.MONTH,month-1); //也可以填数字，0-11,一月为0
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+                calendar.set(Calendar.HOUR, hour);
+                calendar.set(Calendar.MINUTE, minute);
                 Intent intent =new Intent(this, AlarmReceiver.class);
                 intent.setAction(AlarmReceiver.action);
                 PendingIntent sender= PendingIntent.getBroadcast(this, Integer.parseInt(AlarmReceiver.action), intent, 0);
                 AlarmManager alarm=(AlarmManager)getSystemService(ALARM_SERVICE);
-                alarm.set(AlarmManager.RTC_WAKEUP, AlarmReceiver.startTime+5*60*1000, sender);//设置闹钟
+                long mTimeInfo = calendar.getTimeInMillis();
+                Log.d("delayTime",""+(mTimeInfo+5*60*1000));
+                alarm.set(AlarmManager.RTC_WAKEUP, mTimeInfo+5*60*1000, sender);//设置闹钟
                 AlarmBean alarmBean=new AlarmBean();
                 alarmBean.setAction(AlarmReceiver.action);//action标识
                 alarmBean.setType(""+AlarmReceiver.type);//类型
                 if (hour<10&&(minute+5)>=10){
                     alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+"0"+hour+":"+(minute+5));//时间
-
                 }
                 if (hour >= 10 && (minute+5)< 10) {
                     alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+hour+":"+"0"+(minute+5));//时间

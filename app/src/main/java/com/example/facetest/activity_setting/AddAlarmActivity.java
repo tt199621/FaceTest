@@ -146,15 +146,13 @@ public class AddAlarmActivity extends BaseDispatchTouchActivity implements View.
                     PendingIntent sender= PendingIntent.getBroadcast(this, 0, intent, 0);
                     AlarmManager alarm=(AlarmManager)getSystemService(ALARM_SERVICE);
                     long mTimeInfo = calendar.getTimeInMillis();
-                    long actualTime = mTimeInfo > System.currentTimeMillis()
-                            ? mTimeInfo : mTimeInfo + ONE_DAY_TIME;
                     AlarmBean alarmBean=new AlarmBean();
                     alarmBean.setAction(intent.getAction());//action标识
                     alarmBean.setType(""+type);//类型
                     alarmBean.setTime(""+add_alarm_time.getText().toString());//时间
                     alarmBean.setLocation(""+add_alarm_location.getText().toString());//地点
                     alarmBean.setTips(""+add_alarm_tips.getText().toString());//备注
-                    alarmBean.setStartTime(actualTime);
+                    alarmBean.setStartTime(mTimeInfo);
                     alarmBeans.clear();
                     alarmBeans=save.getAlarm("alarm");
                     //保存唯一标识的闹钟
@@ -166,8 +164,8 @@ public class AddAlarmActivity extends BaseDispatchTouchActivity implements View.
                             alarmBean.setAction(String.valueOf(i+1));
                         }
                     }
-                    alarm.set(AlarmManager.RTC_WAKEUP, actualTime, sender);//设置闹钟
-                    Log.d("canlendar",""+actualTime+"----action: "+intent.getAction());
+                    alarm.set(AlarmManager.RTC_WAKEUP, mTimeInfo, sender);//设置闹钟
+                    Log.d("canlendar",""+mTimeInfo+"----action: "+intent.getAction());
                     alarmBeans.add(alarmBean);
                     save.setAlarm("alarm",alarmBeans);//存入数据库
                     Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
