@@ -41,8 +41,10 @@ import com.example.facetest.Arcface.widget.FaceRectView;
 import com.example.facetest.R;
 import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
 import com.example.facetest.activity_work.WorkModelActivity;
+import com.example.facetest.bean.BannerBean;
 import com.example.facetest.util.AlertDialogUtils;
 import com.example.facetest.util.GlideImageLoader;
+import com.example.facetest.util.ListDataSave;
 import com.example.facetest.util.SaveData;
 import com.robotemi.sdk.NlpResult;
 import com.robotemi.sdk.Robot;
@@ -65,7 +67,9 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
 
     private Robot robot;
     private Banner banner;
-    List<Integer> path;
+    List<String> path;
+    List<BannerBean> bannerBeans;
+    private ListDataSave save;
 
     private Button work_btn,exhibition_btn;
 
@@ -127,28 +131,14 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
     public void setBanner(){
         banner=findViewById(R.id.banner);
         path=new ArrayList<>();
+        bannerBeans=new ArrayList<>();
+        save=new ListDataSave(this,"bannerDB");
         path.clear();
-        path.add(R.drawable.screensaver1);
-        path.add(R.drawable.screensaver2);
-        path.add(R.drawable.screensaver3);
-        path.add(R.drawable.screensaver4);
-        path.add(R.drawable.screensaver5);
-        path.add(R.drawable.screensaver6);
-        path.add(R.drawable.screensaver7);
-        path.add(R.drawable.screensaver8);
-        path.add(R.drawable.screensaver9);
-        path.add(R.drawable.screensaver10);
-        path.add(R.drawable.screensaver11);
-        path.add(R.drawable.screensaver12);
-        /*path.add(R.drawable.screensaver13);
-        path.add(R.drawable.screensaver14);
-        path.add(R.drawable.screensaver15);
-        path.add(R.drawable.screensaver16);
-        path.add(R.drawable.screensaver17);
-        path.add(R.drawable.screensaver18);
-        path.add(R.drawable.screensaver19);
-        path.add(R.drawable.screensaver20);
-        path.add(R.drawable.screensaver21);*/
+        bannerBeans.clear();
+        bannerBeans=save.getBanners("banner");
+        for (int i = 0; i < bannerBeans.size(); i++) {
+            path.add(bannerBeans.get(i).getSrc());
+        }
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合

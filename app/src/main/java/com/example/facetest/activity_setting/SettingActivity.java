@@ -16,7 +16,7 @@ import com.example.facetest.util.BaseDispatchTouchActivity;
 public class SettingActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private ImageView finish_setting,home_setting;
-    private TextView setting_welcom_words,setting_activities,setting_exhibition_introduce,setting_answer,setting_data_plan,setting_password,setting_default_mode;
+    private TextView setting_welcom_img,setting_welcom_words,setting_activities,setting_exhibition_introduce,setting_answer,setting_data_plan,setting_password,setting_default_mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +35,25 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
         setting_answer=findViewById(R.id.setting_answer);//业务问答
         setting_data_plan=findViewById(R.id.setting_data_plan);//日程安排
         setting_password=findViewById(R.id.setting_password);//口令
-        setting_default_mode=findViewById(R.id.setting_default_mode);//默认模式
+/*        setting_default_mode=findViewById(R.id.setting_default_mode);//默认模式
+        setting_default_mode.setOnClickListener(this);*/
+        setting_welcom_img=findViewById(R.id.setting_welcom_img);//设置轮播图
+        setting_welcom_img.setOnClickListener(this);
         setting_welcom_words.setOnClickListener(this);
         setting_activities.setOnClickListener(this);
         setting_exhibition_introduce.setOnClickListener(this);
         setting_answer.setOnClickListener(this);
         setting_data_plan.setOnClickListener(this);
         setting_password.setOnClickListener(this);
-        setting_default_mode.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.setting_welcom_img://设置轮播图
+                startActivity(new Intent(this,SettingBannerActivity.class));
+                break;
             case R.id.setting_welcom_words://设置迎宾词
                 startActivity(new Intent(this,SettingWelcomWordsActivity.class));
                 break;
@@ -67,8 +72,8 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
             case R.id.setting_password://设置口令
                 startActivity(new Intent(this,ModifyPassword.class));
                 break;
-            case R.id.setting_default_mode://默认模式
-                break;
+/*            case R.id.setting_default_mode://默认模式
+                break;*/
             case R.id.finish_setting:
                 finish();
                 break;

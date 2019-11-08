@@ -19,7 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_setting.LookAlarmActivity"></activity>
+        <activity android:name=".activity_setting.EditBannerActivity"></activity>
+        <activity android:name=".activity_setting.AddBannerActivity" />
+        <activity
+            android:name=".activity_setting.SettingBannerActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity_setting.LookAlarmActivity" />
         <activity android:name=".activity_setting.ShowAlarmActivity" />
         <activity android:name=".activity_setting.EditAlarmActivity" />
 

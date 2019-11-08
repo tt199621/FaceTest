@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.facetest.bean.AlarmBean;
+import com.example.facetest.bean.BannerBean;
 import com.example.facetest.bean.LocationBean;
 import com.example.facetest.bean.SpeakBean;
 import com.google.gson.Gson;
@@ -150,6 +151,42 @@ public class ListDataSave {
         }
         Gson gson = new Gson();
         datalist = gson.fromJson(strJson, new TypeToken<List<AlarmBean>>() {
+        }.getType());
+        return datalist;
+
+    }
+
+
+    /**
+     * 保存轮播图实体集
+     * @param tag=key
+     * @param datalist
+     */
+    public  void setBanners(String tag, List<BannerBean> datalist) {
+        if (null == datalist || datalist.size() <= 0)
+            return;
+        Log.d("exhName","setKey:"+ tag);
+        Gson gson = new Gson();
+        //转换成json数据，再保存
+        String strJson = gson.toJson(datalist);
+        editor.putString(tag, strJson);
+        editor.commit();
+    }
+
+    /**
+     * 获取轮播图实体集
+     * @param tag=key
+     * @return
+     */
+    public  List<BannerBean> getBanners(String tag) {
+        List<BannerBean> datalist=new ArrayList<>();
+        Log.d("exhName","getKey:"+ tag);
+        String strJson = preferences.getString(tag, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        Gson gson = new Gson();
+        datalist = gson.fromJson(strJson, new TypeToken<List<BannerBean>>() {
         }.getType());
         return datalist;
 

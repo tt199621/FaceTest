@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/title_back"/>
+
+    <EditText
+        android:id="@+id/edit_src"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="图片路径"
+        android:textColorHint="@color/white"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/save_banner_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame"
+        android:text="保存"
+        android:textColor="@color/colorFloatingButton_press"
+        android:textSize="50dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
