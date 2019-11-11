@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /><!--悬浮窗-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 悬浮窗 -->
     <uses-permission
         android:name="android.permission.SET_TIME"
         tools:ignore="ProtectedPermissions" />
@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_setting.EditBannerActivity"></activity>
+        <activity android:name=".activity_setting.SettingDefaultModeActivity"></activity>
+        <activity android:name=".activity_setting.EditBannerActivity" />
         <activity android:name=".activity_setting.AddBannerActivity" />
         <activity
             android:name=".activity_setting.SettingBannerActivity"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/screen_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/title_back"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="模式选择"
+        android:textColor="@color/colorFloatingButton_press"
+        android:textSize="35sp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_btn_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作模式"
+            android:textColor="@color/colorAccent"
+            android:textSize="30dp"
+            android:checked="true"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_btn_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展厅模式"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="30dp"/>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radio_btn_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="默认模式"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="30dp"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/commit_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="确定"
+        android:textSize="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/frame"/>
+
+</LinearLayout>

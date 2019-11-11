@@ -35,7 +35,7 @@ public class AppApplication extends Application{
                 .setView(imageView)
                 .setWidth(Screen.width, 0.05f) //设置悬浮控件宽高
                 .setHeight(Screen.width, 0.05f)
-                .setX(Screen.width, 0.8f)
+                .setX(Screen.width, 0.9f)
                 .setY(Screen.height, 0.7f)
                 .setMoveType(MoveType.slide,100,100)
                 .setMoveStyle(500, new BounceInterpolator())

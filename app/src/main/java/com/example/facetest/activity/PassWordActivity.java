@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.example.facetest.util.SaveData;
 public class PassWordActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     TextView inputpwd;
+    ImageView return_password;
     Button button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,buttondel,enterbtn;
     String password="";
     @Override
@@ -28,6 +30,8 @@ public class PassWordActivity extends BaseDispatchTouchActivity implements View.
     }
 
     public void initView(){
+        return_password=findViewById(R.id.return_password);
+        return_password.setOnClickListener(this);
         inputpwd=findViewById(R.id.inputpwd);//输入框
         button0=findViewById(R.id.button0);
         button1=findViewById(R.id.button1);
@@ -58,6 +62,9 @@ public class PassWordActivity extends BaseDispatchTouchActivity implements View.
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.return_password:
+                finish();
+                break;
             case R.id.button0:
                 password=password+"0";
                 inputpwd.setText(password.replaceAll("null",""));

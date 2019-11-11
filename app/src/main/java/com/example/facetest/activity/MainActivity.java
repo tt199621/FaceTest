@@ -2,6 +2,7 @@ package com.example.facetest.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -318,36 +319,54 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                     }
                     drawHelper.draw(faceRectView, drawInfoList);
                     if (drawInfoList.size()>0&&ifSpeak){
-                        mTimer.start();
-                        Robot robotW=Robot.getInstance();
-                        String welcomWords=SaveData.getGuideData(MainActivity.this,"welcom");
-                        utils = AlertDialogUtils.getInstance();
-                        if (welcomWords.equals("")){
-                            robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
-                            utils.showConfirmDialog(MainActivity.this, "您好，有什么可以帮您的？");
-                        }else {
-                            robotW.speak(TtsRequest.create(welcomWords,false));
-                            utils.showConfirmDialog(MainActivity.this, welcomWords);
+                        SharedPreferences sp=getSharedPreferences("modeDB",MODE_PRIVATE);
+                        /**
+                         * 默认模式
+                         */
+                        if (sp.getString("mode","").equals("")){
+                            mTimer.start();
+                            Robot robotW=Robot.getInstance();
+                            String welcomWords=SaveData.getGuideData(MainActivity.this,"welcom");
+                            utils = AlertDialogUtils.getInstance();
+                            if (welcomWords.equals("")){
+                                robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
+                                utils.showConfirmDialog(MainActivity.this, "您好，有什么可以帮您的？");
+                            }else {
+                                robotW.speak(TtsRequest.create(welcomWords,false));
+                                utils.showConfirmDialog(MainActivity.this, welcomWords);
+                            }
+                            ifSpeak=false;
+                            //按钮点击监听
+                            utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
+                                @Override
+                                public void onPositiveButtonClick(AlertDialog dialog) {
+                                    startActivity(new Intent(MainActivity.this, ExhibitionModeActivity.class));
+                                    finish();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onNegativeButtonClick(AlertDialog dialog) {
+                                    startActivity(new Intent(MainActivity.this, WorkModelActivity.class));
+                                    finish();
+                                    dialog.dismiss();
+                                }
+                            });
                         }
-                        ifSpeak=false;
-
-
-                        //按钮点击监听
-                        utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
-                            @Override
-                            public void onPositiveButtonClick(AlertDialog dialog) {
-                                startActivity(new Intent(MainActivity.this, ExhibitionModeActivity.class));
-                                finish();
-                                dialog.dismiss();
-                            }
-
-                            @Override
-                            public void onNegativeButtonClick(AlertDialog dialog) {
-                                startActivity(new Intent(MainActivity.this, WorkModelActivity.class));
-                                finish();
-                                dialog.dismiss();
-                            }
-                        });
+                        /**
+                         * 工作模式
+                         */
+                        if (sp.getString("mode","").equals("工作模式")){
+                            startActivity(new Intent(MainActivity.this,WorkModelActivity.class));
+                            finish();
+                        }
+                        /**
+                         * 展厅模式
+                         */
+                        if (sp.getString("mode","").equals("展厅模式")){
+                            startActivity(new Intent(MainActivity.this,ExhibitionModeActivity.class));
+                            finish();
+                        }
 
                     }
                 }

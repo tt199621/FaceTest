@@ -1,5 +1,6 @@
 package com.example.facetest.activity_setting;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.facetest.R;
 import com.example.facetest.adapter.SettingExhibitonAdapter;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class SettingExhibitonActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
-    private ImageView finish_setting_exhibition,add_location;
+    private ImageView finish_setting_exhibition;
     private RecyclerView recycler_setting_exhibition;
     private LinearLayoutManager linearLayoutManager;
     private Robot robot;
@@ -33,12 +35,14 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
     private SettingExhibitonAdapter adapter;
     private ListDataSave save;
     private Boolean saveCode=false;
+    private SwipeRefreshLayout swipeRefreshLayout;//下拉刷新
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_exhibiton);
         initView();
         initData();
+        swipRefresh();
     }
 
 
@@ -46,8 +50,6 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
         robot=Robot.getInstance();
         locations=new ArrayList<>();
         defaultLocation=new ArrayList<>();
-        add_location=findViewById(R.id.add_location);
-        add_location.setOnClickListener(this);
         linearLayoutManager=new LinearLayoutManager(this);
         finish_setting_exhibition=findViewById(R.id.finish_setting_exhibition);
         recycler_setting_exhibition=findViewById(R.id.recycler_setting_exhibition);
@@ -170,15 +172,44 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
         touchHelper.attachToRecyclerView(recycler_setting_exhibition);
     }
 
+
+    //下拉刷新
+    public void swipRefresh(){
+        //下拉刷新
+        swipeRefreshLayout=findViewById(R.id.swip_setting_exh);
+        swipeRefreshLayout.setColorSchemeColors(Color.RED);
+        swipeRefreshLayout.setProgressViewEndTarget (false,200);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                saveCode=true;
+                                initData();
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.finish_setting_exhibition:
                 finish();
-                break;
-            case R.id.add_location:
-                saveCode=true;
-                initData();
                 break;
         }
     }

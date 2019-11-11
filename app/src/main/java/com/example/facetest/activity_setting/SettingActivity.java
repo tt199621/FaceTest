@@ -35,8 +35,8 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
         setting_answer=findViewById(R.id.setting_answer);//业务问答
         setting_data_plan=findViewById(R.id.setting_data_plan);//日程安排
         setting_password=findViewById(R.id.setting_password);//口令
-/*        setting_default_mode=findViewById(R.id.setting_default_mode);//默认模式
-        setting_default_mode.setOnClickListener(this);*/
+        setting_default_mode=findViewById(R.id.setting_default_mode);//默认模式
+        setting_default_mode.setOnClickListener(this);
         setting_welcom_img=findViewById(R.id.setting_welcom_img);//设置轮播图
         setting_welcom_img.setOnClickListener(this);
         setting_welcom_words.setOnClickListener(this);
@@ -72,8 +72,9 @@ public class SettingActivity extends BaseDispatchTouchActivity implements View.O
             case R.id.setting_password://设置口令
                 startActivity(new Intent(this,ModifyPassword.class));
                 break;
-/*            case R.id.setting_default_mode://默认模式
-                break;*/
+            case R.id.setting_default_mode://默认模式
+                startActivity(new Intent(this,SettingDefaultModeActivity.class));
+                break;
             case R.id.finish_setting:
                 finish();
                 break;

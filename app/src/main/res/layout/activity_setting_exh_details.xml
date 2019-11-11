@@ -18,39 +18,81 @@
         android:textColor="@color/white"
         android:gravity="center"/>
 
-    <EditText
-        android:id="@+id/setting_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="展位介绍文本设置"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
-    <EditText
-        android:id="@+id/setting_speak"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="展位显示文字:"
+            android:textColor="@color/colorFloatingButton_press"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/setting_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="展位介绍文本设置"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="展位介绍语音设置"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
-    <EditText
-        android:id="@+id/setting_src"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="展位语音内容:"
+            android:textColor="@color/colorFloatingButton_press"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/setting_speak"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="展位介绍语音设置"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="展位介绍图片路径设置"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="展位图片链接:"
+            android:textColor="@color/colorFloatingButton_press"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/setting_src"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="展位介绍图片路径设置"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
 
 
     <Button

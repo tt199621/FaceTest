@@ -46,7 +46,6 @@ public class EditAlarmActivity extends BaseDispatchTouchActivity implements View
     private int day;        //日
     private int hour;       //时
     private int minute;     //分
-    private static final int ONE_DAY_TIME = 1000*60*60*24;
 
     private ListDataSave save;
     private List<AlarmBean> alarmBeans;

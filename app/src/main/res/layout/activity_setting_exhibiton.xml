@@ -14,23 +14,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="65dp"
         app:srcCompat="@drawable/return_d" />
-
-    <FrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/swip_setting_exh">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_setting_exhibition"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <ImageView
-            android:id="@+id/add_location"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="30dp"
-            android:src="@drawable/add"/>
-    </FrameLayout>
 
 </LinearLayout>

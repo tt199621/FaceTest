@@ -18,39 +18,80 @@
         android:textColor="@color/white"
         android:gravity="center"/>
 
-    <EditText
-        android:id="@+id/activiety_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="请输入文字介绍内容"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
-    <EditText
-        android:id="@+id/activiety_speak"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="显示文字:"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/colorFloatingButton_press"/>
+        <EditText
+            android:id="@+id/activiety_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="请输入文字介绍内容"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="请输入语音介绍内容"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
-    <EditText
-        android:id="@+id/activiety_src"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="语音介绍:"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/colorFloatingButton_press"/>
+        <EditText
+            android:id="@+id/activiety_speak"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="请输入语音介绍内容"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:hint="请输入图片路径"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="图片路径:"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/colorFloatingButton_press"/>
+        <EditText
+            android:id="@+id/activiety_src"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:hint="请输入图片路径"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
 
 
     <Button
