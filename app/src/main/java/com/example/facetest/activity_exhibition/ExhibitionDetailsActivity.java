@@ -32,7 +32,7 @@ public class ExhibitionDetailsActivity extends BaseDispatchTouchActivity impleme
         image_details=findViewById(R.id.image_details);
         exh_produce=findViewById(R.id.exh_produce);
         finish.setOnClickListener(this);
-        Glide.with(this).load(ExhibitonAdapter.imgSrc).placeholder(R.mipmap.ic_launcher).into(image_details);//展位图片
+        Glide.with(this).load(ExhibitonAdapter.imgSrc).placeholder(R.drawable.screensaver1).into(image_details);//展位图片
         exh_produce.setText(ExhibitonAdapter.imgProduce);//文字介绍
         robot.speak(TtsRequest.create("请您跟我来",false));
     }

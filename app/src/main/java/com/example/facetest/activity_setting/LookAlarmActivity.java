@@ -80,27 +80,36 @@ public class LookAlarmActivity extends BaseDispatchTouchActivity implements View
                 minute = calendar.get(Calendar.MINUTE);//获取分钟
                 calendar.set(Calendar.YEAR,Year);
                 calendar.set(Calendar.MONTH,month-1); //也可以填数字，0-11,一月为0
-                calendar.set(Calendar.DAY_OF_MONTH, day);
-                calendar.set(Calendar.HOUR, hour);
+                calendar.set(Calendar.DATE, day);
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
+                calendar.set(Calendar.SECOND, 0);
                 Intent intent =new Intent(this, AlarmReceiver.class);
                 intent.setAction(AlarmReceiver.action);
                 PendingIntent sender= PendingIntent.getBroadcast(this, Integer.parseInt(AlarmReceiver.action), intent, 0);
                 AlarmManager alarm=(AlarmManager)getSystemService(ALARM_SERVICE);
                 long mTimeInfo = calendar.getTimeInMillis();
-                Log.d("delayTime",""+(mTimeInfo+5*60*1000));
+                Log.d("delayTime",""+(mTimeInfo+5*60*1000)+" action:"+AlarmReceiver.action);
                 alarm.set(AlarmManager.RTC_WAKEUP, mTimeInfo+5*60*1000, sender);//设置闹钟
                 AlarmBean alarmBean=new AlarmBean();
                 alarmBean.setAction(AlarmReceiver.action);//action标识
                 alarmBean.setType(""+AlarmReceiver.type);//类型
                 if (hour<10&&(minute+5)>=10){
-                    alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+"0"+hour+":"+(minute+5));//时间
+                    if ((minute+5)<60){
+                        alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+"0"+hour+":"+(minute+5));//时间
+                    }else {
+                        alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+"0"+(hour+1)+":"+"0"+(minute+5-60));//时间
+                    }
                 }
                 if (hour >= 10 && (minute+5)< 10) {
                     alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+hour+":"+"0"+(minute+5));//时间
                 }
                 if (hour>=10&&(minute+5)>=10){
-                    alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+hour+":"+(minute+5));//时间
+                    if ((minute+5)<60){
+                        alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+hour+":"+(minute+5));//时间
+                    }else {
+                        alarmBean.setTime(""+""+Year+"年"+month+"月"+day+"日   "+(hour+1)+":"+"0"+(minute+5-60));//时间
+                    }
                 }
                 alarmBean.setLocation(""+AlarmReceiver.locations);//地点
                 alarmBean.setTips(""+AlarmReceiver.tips);//备注
