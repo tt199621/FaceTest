@@ -3,6 +3,7 @@ package com.example.facetest.app;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.facetest.R;
-import com.example.facetest.util.BaseDispatchTouchActivity;
+import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
+import com.example.facetest.activity_work.WorkModelActivity;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
@@ -39,7 +41,7 @@ public class AppApplication extends Application{
                 .setY(Screen.height, 0.7f)
                 .setMoveType(MoveType.slide,100,100)
                 .setMoveStyle(500, new BounceInterpolator())
-                .setFilter(true, BaseDispatchTouchActivity.class)//传入所有的Activity,过滤掉达到让其不再应用内显示
+                .setFilter(true, ExhibitionModeActivity.class, WorkModelActivity.class)
                 .setViewStateListener(mViewStateListener)
                 .setPermissionListener(mPermissionListener)
                 .setDesktopShow(true)
@@ -48,8 +50,13 @@ public class AppApplication extends Application{
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //这里是指从后台返回到前台  前两个的是关键
-                gototherApp("com.example.facetest","com.example.facetest.activity_exhibition.ExhibitionModeActivity");
+                //后台返回到前台
+                SharedPreferences sp=getSharedPreferences("modeDB",MODE_PRIVATE);
+                if(sp.getString("mode","").equals("")||sp.getString("mode","").equals("展厅模式")){
+                    gototherApp("com.example.facetest","com.example.facetest.activity_exhibition.ExhibitionModeActivity");
+                }else {
+                    gototherApp("com.example.facetest","com.example.facetest.activity_work.WorkModelActivity");
+                }
             }
         });
     }

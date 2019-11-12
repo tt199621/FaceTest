@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.example.facetest.R;
 import com.example.facetest.util.BaseDispatchTouchActivity;
 
+/**
+ * 设置默认模式
+ */
 public class SettingDefaultModeActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
 
     private RadioGroup radio_group;

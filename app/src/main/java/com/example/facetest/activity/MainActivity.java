@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         setBanner();
     }
 
-
-
     //设置轮播图
     public void setBanner(){
         banner=findViewById(R.id.banner);
@@ -320,6 +318,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                     drawHelper.draw(faceRectView, drawInfoList);
                     if (drawInfoList.size()>0&&ifSpeak){
                         SharedPreferences sp=getSharedPreferences("modeDB",MODE_PRIVATE);
+                        ifSpeak=false;
                         /**
                          * 默认模式
                          */
@@ -335,7 +334,6 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                                 robotW.speak(TtsRequest.create(welcomWords,false));
                                 utils.showConfirmDialog(MainActivity.this, welcomWords);
                             }
-                            ifSpeak=false;
                             //按钮点击监听
                             utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
                                 @Override
@@ -481,4 +479,5 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                 break;
         }
     }
+
 }
