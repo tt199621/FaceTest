@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,8 +42,11 @@ import com.example.facetest.Arcface.util.DrawHelper;
 import com.example.facetest.Arcface.widget.FaceRectView;
 import com.example.facetest.R;
 import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
+import com.example.facetest.activity_exhibition.GuideActivity;
+import com.example.facetest.activity_setting.SettingExhibitonActivity;
 import com.example.facetest.activity_work.WorkModelActivity;
 import com.example.facetest.bean.BannerBean;
+import com.example.facetest.bean.LocationBean;
 import com.example.facetest.util.AlertDialogUtils;
 import com.example.facetest.util.GlideImageLoader;
 import com.example.facetest.util.ListDataSave;
@@ -68,11 +72,12 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
 
     private Robot robot;
     private Banner banner;
-    List<String> path;
+    List<String> path,locations;
     List<BannerBean> bannerBeans;
-    private ListDataSave save;
+    private ListDataSave save,saveLocation;
 
     private Button work_btn,exhibition_btn;
+    private ImageView imageView2;
 
     private static final String TAG = "PreviewActivity";
     private CameraHelper cameraHelper;
@@ -123,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         exhibition_btn=findViewById(R.id.exhibition_btn);
         work_btn.setOnClickListener(this);
         exhibition_btn.setOnClickListener(this);
+        imageView2=findViewById(R.id.imageView2);//返回初始点
+        imageView2.setOnClickListener(this);
         setBanner();
     }
 
@@ -316,16 +323,19 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                         drawInfoList.add(new DrawInfo(drawHelper.adjustRect(faceInfoList.get(i).getRect()), genderInfoList.get(i).getGender(), ageInfoList.get(i).getAge(), faceLivenessInfoList.get(i).getLiveness(), null));
                     }
                     drawHelper.draw(faceRectView, drawInfoList);
+                    /**
+                     * 检测到活体
+                     */
                     if (drawInfoList.size()>0&&ifSpeak){
                         SharedPreferences sp=getSharedPreferences("modeDB",MODE_PRIVATE);
+                        String welcomWords=SaveData.getGuideData(MainActivity.this,"welcom");//迎宾词
                         ifSpeak=false;
                         /**
-                         * 默认模式
+                         * 迎宾模式
                          */
                         if (sp.getString("mode","").equals("")){
                             mTimer.start();
                             Robot robotW=Robot.getInstance();
-                            String welcomWords=SaveData.getGuideData(MainActivity.this,"welcom");
                             utils = AlertDialogUtils.getInstance();
                             if (welcomWords.equals("")){
                                 robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
@@ -362,8 +372,53 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                          * 展厅模式
                          */
                         if (sp.getString("mode","").equals("展厅模式")){
-                            startActivity(new Intent(MainActivity.this,ExhibitionModeActivity.class));
-                            finish();
+                            mTimer.start();
+                            Robot robotW=Robot.getInstance();
+                            utils = AlertDialogUtils.getInstance();
+                            if (welcomWords.equals("")){
+                                robotW.speak(TtsRequest.create("您好，有什么可以帮您的？",false));
+                                utils.showDialog(MainActivity.this,"您好，有什么可以帮您的？","展厅模式","展厅导览");
+                            }else {
+                                robotW.speak(TtsRequest.create(welcomWords,false));
+                                utils.showDialog(MainActivity.this,welcomWords,"展厅模式","展厅导览");
+                            }
+                            //按钮点击监听
+                            utils.setOnButtonClickListener(new AlertDialogUtils.OnButtonClickListener() {
+                                @Override
+                                public void onNegativeButtonClick(AlertDialog dialog) {
+                                    startActivity(new Intent(MainActivity.this, ExhibitionModeActivity.class));
+                                    finish();
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onPositiveButtonClick(AlertDialog dialog) {
+                                    Boolean intentCode=true;
+                                    locations=new ArrayList<>();
+                                    saveLocation=new ListDataSave(MainActivity.this,"location");
+                                    locations=saveLocation.getLocation("location_order");
+                                    if (robot.getLocations().size()==1){
+                                        robot.speak(TtsRequest.create("请先添加位置",false));
+                                    }else {
+                                        if(locations==null||locations.size()==0){
+                                            robot.speak(TtsRequest.create("位置未添加到展位中",false));
+                                        }else {
+                                            for (int i = 0; i < locations.size(); i++) {
+                                                List<LocationBean> data = saveLocation.getDataList(locations.get(i));
+                                                if (data.size() == 0) {
+                                                    robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
+                                                    intentCode=false;
+                                                    startActivity(new Intent(MainActivity.this, SettingExhibitonActivity.class));
+                                                }
+                                            }
+                                            if (intentCode==true){
+                                                startActivity(new Intent(MainActivity.this, GuideActivity.class));
+                                            }
+                                        }
+                                    }
+                                    dialog.dismiss();
+                                }
+                            });
                         }
 
                     }
@@ -476,6 +531,15 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
             case R.id.exhibition_btn:
                 startActivity(new Intent(MainActivity.this,ExhibitionModeActivity.class));
                 finish();
+                break;
+            case R.id.imageView2:
+                ListDataSave save=new ListDataSave(this,"location");
+                //默认回到导览的初始点
+                if (save.getLocation("location_order").size()!=0){
+                    robot.goTo(save.getLocation("location_order").get(0));
+                }else {
+                    robot.goTo("home base");
+                }
                 break;
         }
     }

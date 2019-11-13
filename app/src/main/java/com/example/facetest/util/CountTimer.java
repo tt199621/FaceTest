@@ -13,6 +13,7 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
     private Context context;
     Robot robotTime=Robot.getInstance();
     Boolean code=false;
+    private ListDataSave save;
 
 
     /**
@@ -29,7 +30,7 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
         // 注册监听事件
         robotTime.addTtsListener(this);
         robotTime.addOnGoToLocationStatusChangedListener(this);
-        robotTime.speak(TtsRequest.create("没人跟我玩，那我回去充电咯",false));
+        robotTime.speak(TtsRequest.create("没人跟我玩，那我回去咯",false));
         code=true;
     }
     // 计时过程显示
@@ -41,8 +42,15 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
     public void onTtsStatusChanged(TtsRequest ttsRequest) {
         switch (ttsRequest.getStatus()){
             case COMPLETED:
-                if (code==true)
-                    robotTime.goTo("home base");
+                if (code==true){
+                    save=new ListDataSave(context,"location");
+                    //默认回到导览的初始点
+                    if (save.getLocation("location_order").size()!=0){
+                        robotTime.goTo(save.getLocation("location_order").get(0));
+                    }else {
+                        robotTime.goTo("home base");
+                    }
+                }
                 break;
         }
     }

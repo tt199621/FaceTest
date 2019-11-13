@@ -13,7 +13,7 @@
         android:background="@color/white"
         android:layout_height="50dp"
         android:layout_margin="10dp"
-        android:hint="请输入“q1、q2…q100”"
+        android:hint="请输入“q1、q2…q500”"
         android:textColorHint="@color/black"
         android:textSize="30sp"
         android:textColor="@color/black"
