@@ -12,21 +12,48 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.facetest.R;
+import com.example.facetest.activity.ContactsActivity;
+import com.example.facetest.activity_exhibition.ExhibitionItemActivity;
 import com.example.facetest.activity_exhibition.ExhibitionModeActivity;
+import com.example.facetest.activity_exhibition.GuideActivity;
+import com.example.facetest.activity_setting.SettingAlarmActivity;
+import com.example.facetest.activity_setting.SettingExhibitonActivity;
 import com.example.facetest.activity_work.WorkModelActivity;
+import com.example.facetest.bean.LocationBean;
+import com.example.facetest.util.ListDataSave;
+import com.robotemi.sdk.NlpResult;
+import com.robotemi.sdk.Robot;
+import com.robotemi.sdk.TtsRequest;
 import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.MoveType;
 import com.yhao.floatwindow.PermissionListener;
 import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
 
-public class AppApplication extends Application{
+import java.util.ArrayList;
+import java.util.List;
+
+public class AppApplication extends Application implements Robot.NlpListener {
     private static final String TAG = "FloatWindow";
+    Robot robot;
+    private List<String> locations;
+    private ListDataSave save;
+    private Intent intent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         initFloat();
+        robot=Robot.getInstance();
+        robot.addNlpListener(this);
+        intent=new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        robot.removeNlpListener(this);
     }
 
     private void initFloat() {
@@ -127,5 +154,81 @@ public class AppApplication extends Application{
             Log.d(TAG, "onFail");
         }
     };
+
+    @Override
+    public void onNlpCompleted(NlpResult nlpResult) {
+        switch (nlpResult.action){
+            case "work"://工作模式
+                intent.setClass(this,WorkModelActivity.class);
+                startActivity(intent);
+                break;
+            case "exhibition"://展厅模式
+                intent.setClass(this,ExhibitionModeActivity.class);
+                startActivity(intent);
+                break;
+            case "booth"://展位介绍
+                Boolean Code=true;
+                locations=new ArrayList<>();
+                save=new ListDataSave(this,"location");
+                locations=save.getLocation("location_order");
+                if (robot.getLocations().size()==1){
+                    robot.speak(TtsRequest.create("请先添加位置",false));
+                }else {
+                    if(locations==null||locations.size()==0){
+                        robot.speak(TtsRequest.create("位置未添加到展位中",false));
+                    }else {
+                        for (int i = 0; i < locations.size(); i++) {
+                            List<LocationBean> data = save.getDataList(locations.get(i));
+                            if (data.size() == 0) {
+                                robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
+                                Code=false;
+                                intent.setClass(this,SettingExhibitonActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                        if (Code==true){
+                            intent.setClass(this,ExhibitionItemActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+                break;
+            case "tour"://导览介绍
+                Boolean intentCode=true;
+                locations=new ArrayList<>();
+                save=new ListDataSave(this,"location");
+                locations=save.getLocation("location_order");
+                if (robot.getLocations().size()==1){
+                    robot.speak(TtsRequest.create("请先添加位置",false));
+                }else {
+                    if(locations==null||locations.size()==0){
+                        robot.speak(TtsRequest.create("位置未添加到展位中",false));
+                    }else {
+                        for (int i = 0; i < locations.size(); i++) {
+                            List<LocationBean> data = save.getDataList(locations.get(i));
+                            if (data.size() == 0) {
+                                robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
+                                intentCode=false;
+                                intent.setClass(this,SettingExhibitonActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                        if (intentCode==true){
+                            intent.setClass(this,GuideActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+                break;
+            case "schedule"://日程安排
+                intent.setClass(this,SettingAlarmActivity.class);
+                startActivity(intent);
+                break;
+            case "video"://视频会议
+                intent.setClass(this,ContactsActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 
 }

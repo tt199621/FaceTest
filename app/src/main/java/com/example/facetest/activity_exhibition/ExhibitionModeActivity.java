@@ -102,18 +102,18 @@ public class ExhibitionModeActivity extends BaseDispatchTouchActivity implements
                 break;
             case R.id.exhibition://导览介绍
                 Boolean intentCode=true;
-                locations=new ArrayList<>();
-                save=new ListDataSave(this,"location");
-                locations=save.getLocation("location_order");
-                if (robot.getLocations().size()==1){
-                    robot.speak(TtsRequest.create("请先添加位置",false));
-                }else {
-                    if(locations==null||locations.size()==0){
-                        robot.speak(TtsRequest.create("位置未添加到展位中",false));
-                    }else {
-                        for (int i = 0; i < locations.size(); i++) {
-                            List<LocationBean> data = save.getDataList(locations.get(i));
-                            if (data.size() == 0) {
+                            locations=new ArrayList<>();
+                            save=new ListDataSave(this,"location");
+                            locations=save.getLocation("location_order");
+                            if (robot.getLocations().size()==1){
+                                robot.speak(TtsRequest.create("请先添加位置",false));
+                            }else {
+                                if(locations==null||locations.size()==0){
+                                    robot.speak(TtsRequest.create("位置未添加到展位中",false));
+                                }else {
+                                    for (int i = 0; i < locations.size(); i++) {
+                                        List<LocationBean> data = save.getDataList(locations.get(i));
+                                        if (data.size() == 0) {
                                 robot.speak(TtsRequest.create("请先给" + locations.get(i) + "设置展位信息", true));
                                 intentCode=false;
                                 startActivity(new Intent(this, SettingExhibitonActivity.class));
