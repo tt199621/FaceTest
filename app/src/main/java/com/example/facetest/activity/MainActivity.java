@@ -35,7 +35,6 @@ import com.arcsoft.face.LivenessInfo;
 import com.arcsoft.face.VersionInfo;
 import com.example.facetest.Arcface.camera.CameraHelper;
 import com.example.facetest.Arcface.camera.CameraListener;
-import com.example.facetest.Arcface.common.Constants;
 import com.example.facetest.Arcface.model.DrawInfo;
 import com.example.facetest.Arcface.util.ConfigUtil;
 import com.example.facetest.Arcface.util.DrawHelper;
@@ -61,13 +60,6 @@ import com.youth.banner.BannerConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
 public class MainActivity extends AppCompatActivity implements OnRobotReadyListener , Robot.NlpListener , ViewTreeObserver.OnGlobalLayoutListener , View.OnClickListener {
 
     private Robot robot;
@@ -85,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
     private Camera.Size previewSize;
     private Integer rgbCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private FaceEngine faceEngine;
+    ;
     private int afCode = -1;
     private int processMask = FaceEngine.ASF_AGE | FaceEngine.ASF_FACE3DANGLE | FaceEngine.ASF_GENDER | FaceEngine.ASF_LIVENESS;
     /**
@@ -131,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
         imageView2=findViewById(R.id.imageView2);//返回初始点
         imageView2.setOnClickListener(this);
         setBanner();
+        checkPermissions(NEEDED_PERMISSIONS);
     }
 
     //设置轮播图
@@ -178,8 +172,6 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
                 isAllGranted &= (grantResult == PackageManager.PERMISSION_GRANTED);
             }
             if (isAllGranted) {
-                activeEngine();
-                initCamera();
                 if (cameraHelper != null) {
                     cameraHelper.start();
                 }
@@ -191,57 +183,7 @@ public class MainActivity extends AppCompatActivity implements OnRobotReadyListe
 
 
 
-    /**
-     * 激活引擎
-     */
-    public void activeEngine() {
-        if (!checkPermissions(NEEDED_PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
-            return;
-        }
-        Observable.create(new ObservableOnSubscribe<Integer>() {
-            @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-                FaceEngine faceEngine = new FaceEngine();
-                int activeCode = faceEngine.active(MainActivity.this, Constants.APP_ID, Constants.SDK_KEY);
-                emitter.onNext(activeCode);
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new io.reactivex.Observer<Integer>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
-
-                    @Override
-                    public void onNext(Integer activeCode) {
-                        if (activeCode == ErrorInfo.MOK) {
-                            initEngine();
-                        } else if (activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
-                            if (cameraHelper != null) {
-                                //启动相机
-                                cameraHelper.start();
-                            }
-                            Log.e("引擎已激活", "引擎已激活，无需再次激活");
-                        } else {
-                            Toast.makeText(MainActivity.this, "激活引擎失败", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
 
     //初始化引擎
     private void initEngine() {

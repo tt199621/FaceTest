@@ -11,6 +11,10 @@ import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.arcsoft.face.ActiveFileInfo;
+import com.arcsoft.face.ErrorInfo;
+import com.arcsoft.face.FaceEngine;
+import com.example.facetest.Arcface.common.Constants;
 import com.example.facetest.R;
 import com.example.facetest.activity.ContactsActivity;
 import com.example.facetest.activity_exhibition.ExhibitionItemActivity;
@@ -33,12 +37,21 @@ import com.yhao.floatwindow.ViewStateListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class AppApplication extends Application implements Robot.NlpListener {
     private static final String TAG = "FloatWindow";
     Robot robot;
     private List<String> locations;
     private ListDataSave save;
     private Intent intent;
+    private FaceEngine faceEngine;
 
     @Override
     public void onCreate() {
@@ -48,6 +61,64 @@ public class AppApplication extends Application implements Robot.NlpListener {
         robot.addNlpListener(this);
         intent=new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activeEngine(null);
+    }
+
+    /**
+     * 激活引擎
+     *
+     * @param view
+     */
+    public void activeEngine(final View view) {
+        faceEngine = new FaceEngine();
+        if (view != null) {
+            view.setClickable(false);
+        }
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                int activeCode = faceEngine.activeOnline(AppApplication.this, Constants.APP_ID, Constants.SDK_KEY);
+                emitter.onNext(activeCode);
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer activeCode) {
+                        if (activeCode == ErrorInfo.MOK) {
+                            Toast.makeText(AppApplication.this, "引擎激活成功", Toast.LENGTH_SHORT).show();
+                        } else if (activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
+                        } else {
+                            Toast.makeText(AppApplication.this, ""+R.string.active_failed, Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (view != null) {
+                            view.setClickable(true);
+                        }
+                        ActiveFileInfo activeFileInfo = new ActiveFileInfo();
+                        int res = faceEngine.getActiveFileInfo(AppApplication.this,activeFileInfo);
+                        if (res == ErrorInfo.MOK) {
+                            Log.i(TAG, activeFileInfo.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     @Override
