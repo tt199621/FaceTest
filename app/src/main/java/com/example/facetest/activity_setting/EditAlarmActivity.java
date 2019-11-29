@@ -16,11 +16,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.facetest.R;
 import com.example.facetest.adapter.AlarmAdapter;
 import com.example.facetest.bean.AlarmBean;
 import com.example.facetest.receiver.AlarmReceiver;
-import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * 编辑闹钟
  */
-public class EditAlarmActivity extends BaseDispatchTouchActivity implements View.OnClickListener{
+public class EditAlarmActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView finish;
     private TextView edit_alarm_time,type;

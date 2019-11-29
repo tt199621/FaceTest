@@ -6,8 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.facetest.R;
-import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.SaveData;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -15,7 +16,7 @@ import com.robotemi.sdk.TtsRequest;
 /**
  * 设置迎宾词
  */
-public class SettingWelcomWordsActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
+public class SettingWelcomWordsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView finish;
     private EditText setting_welcom_words;

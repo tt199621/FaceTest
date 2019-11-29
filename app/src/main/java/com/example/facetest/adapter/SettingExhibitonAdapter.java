@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.facetest.activity_setting.SettingExhDetailsActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibitonAdapter.ViewHolder> {
@@ -52,6 +54,33 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
                 context.startActivity(new Intent(context, SettingExhDetailsActivity.class));
             }
         });
+        /*上移*/
+        holder.exhbition_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (i>0){
+                    Collections.swap(locations,i,i-1);
+                    save.setLocation("location_order",locations);
+                    notifyDataSetChanged();
+                }else {
+                    Toast.makeText(context, "已经到顶了", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        /*下移*/
+        holder.exhbition_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (i<locations.size()-1){
+                    Collections.swap(locations,i,i+1);
+                    save.setLocation("location_order",locations);
+                    notifyDataSetChanged();
+                }else {
+                    Toast.makeText(context, "已经到底了", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        /*删除*/
         holder.remove_exhbition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,12 +101,14 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
     public class ViewHolder extends RecyclerView.ViewHolder {
         View thisView;
         TextView text_setting_exhbition;
-        ImageView remove_exhbition;
+        ImageView remove_exhbition,exhbition_up,exhbition_down;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             thisView=itemView;
             text_setting_exhbition=itemView.findViewById(R.id.text_setting_exhbition);
             remove_exhbition=itemView.findViewById(R.id.remove_exhbition);
+            exhbition_up=itemView.findViewById(R.id.exhbition_up);
+            exhbition_down=itemView.findViewById(R.id.exhbition_down);
         }
     }
 }

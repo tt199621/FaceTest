@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.facetest.R;
 import com.example.facetest.bean.SpeakBean;
-import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * 添加语音应答
  */
-public class AddSpeakActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
+public class AddSpeakActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView finish;
     private EditText speak_code,speak_content;

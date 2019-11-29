@@ -10,8 +10,8 @@
     <TextView
         android:id="@+id/text_setting_exhbition"
         android:layout_width="0dp"
-        android:layout_weight="9"
-        android:layout_height="50dp"
+        android:layout_weight="8"
+        android:layout_height="60dp"
         android:background="@drawable/longbox"
         android:text="机器人展位"
         android:textColor="@color/white"
@@ -20,12 +20,29 @@
         android:gravity="center"/>
 
     <ImageView
-        android:id="@+id/remove_exhbition"
-        android:background="@drawable/longbox"
-        android:layout_margin="5dp"
-        android:layout_width="0dp"
+        android:id="@+id/exhbition_up"
+        android:background="@color/gray"
+        android:layout_marginLeft="5dp"
+        android:layout_width="25dp"
         android:layout_weight="1"
-        android:layout_height="50dp"
-        android:src="@drawable/remove"/>
+        android:layout_height="60dp"
+        android:src="@drawable/up"/>
+
+    <ImageView
+        android:id="@+id/exhbition_down"
+        android:background="@color/gray"
+        android:layout_marginLeft="10dp"
+        android:layout_width="25dp"
+        android:layout_weight="1"
+        android:layout_height="60dp"
+        android:src="@drawable/down"/>
+
+    <ImageView
+        android:id="@+id/remove_exhbition"
+        android:layout_marginLeft="10dp"
+        android:layout_width="25dp"
+        android:layout_weight="1"
+        android:layout_height="60dp"
+        android:src="@drawable/delete"/>
 
 </LinearLayout>

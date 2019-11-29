@@ -7,16 +7,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.facetest.R;
 import com.example.facetest.adapter.BannerAdapter;
 import com.example.facetest.bean.BannerBean;
-import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditBannerActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
+public class EditBannerActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ImageView finish;

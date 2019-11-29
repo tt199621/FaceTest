@@ -7,10 +7,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.facetest.R;
 import com.example.facetest.adapter.SettingSpeakAdapter;
 import com.example.facetest.bean.SpeakBean;
-import com.example.facetest.util.BaseDispatchTouchActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 import com.robotemi.sdk.TtsRequest;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * 修改回答内容
  */
-public class SettingSpeakDetailsActivity extends BaseDispatchTouchActivity implements View.OnClickListener{
+public class SettingSpeakDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView finish;
     private TextView speak_details_question;
