@@ -73,7 +73,6 @@ public class BaseDispatchTouchActivity extends AppCompatActivity implements Robo
         timeStart();
     }
 
-
     @Override
     public void onNlpCompleted(NlpResult nlpResult) {
         activity=new ListDataSave(this,"activityData");
