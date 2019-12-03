@@ -3,6 +3,7 @@ package com.example.facetest.activity_setting;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * 设置展厅页面
  */
-public class SettingExhibitonActivity extends BaseDispatchTouchActivity implements View.OnClickListener {
+public class SettingExhibitonActivity extends BaseDispatchTouchActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ImageView finish_setting_exhibition;
     private RecyclerView recycler_setting_exhibition;
@@ -79,7 +80,7 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
                 locations=save.getLocation("location_order");
             }
         }
-        adapter=new SettingExhibitonAdapter(this,locations);
+        adapter=new SettingExhibitonAdapter(this,this,locations);
         recycler_setting_exhibition.setLayoutManager(linearLayoutManager);
         recycler_setting_exhibition.setAdapter(adapter);
         //设置item拖拽效果
@@ -212,5 +213,10 @@ public class SettingExhibitonActivity extends BaseDispatchTouchActivity implemen
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        
     }
 }

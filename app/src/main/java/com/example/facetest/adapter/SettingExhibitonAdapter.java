@@ -2,6 +2,7 @@ package com.example.facetest.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.facetest.R;
 import com.example.facetest.activity_setting.SettingExhDetailsActivity;
+import com.example.facetest.activity_setting.SettingExhibitonActivity;
 import com.example.facetest.util.ListDataSave;
 import com.robotemi.sdk.Robot;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,18 +31,22 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
     Robot robot;
     public static String exhName="";//展位名称
     private ListDataSave save;
+    List<Boolean> isClick;
+    SettingExhibitonActivity activity;
 
-    public SettingExhibitonAdapter(Context context, List<String> locations) {
+    public SettingExhibitonAdapter(SettingExhibitonActivity activity,Context context, List<String> locations) {
         this.context = context;
         this.locations = locations;
+        this.activity=activity;
+        isClick=new ArrayList<>();
+        for (int i = 0; i < locations.size(); i++) {
+            isClick.add(false);
+        }
     }
 
-    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_setting_exhibition,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_setting_exhibition,parent,false));
     }
 
     @Override
@@ -47,7 +54,31 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
         robot=Robot.getInstance();
         save=new ListDataSave(context,"location");
         holder.text_setting_exhbition.setText(locations.get(i)+"");
-        holder.thisView.setOnClickListener(new View.OnClickListener() {
+        if (isClick.get(i)==true){
+            holder.text_setting_exhbition.setTextSize(40);
+            holder.text_setting_exhbition.setTextColor(Color.RED);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        isClick.set(i,false);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyDataSetChanged();
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }else {
+            holder.text_setting_exhbition.setTextSize(30);
+            holder.text_setting_exhbition.setTextColor(Color.WHITE);
+        }
+        holder.text_setting_exhbition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 exhName=locations.get(i);
@@ -59,10 +90,19 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
             @Override
             public void onClick(View view) {
                 if (i>0){
+                    isClick.clear();
+                    for (int i = 0; i < locations.size(); i++) {
+                        isClick.add(false);
+                    }
+                    isClick.set(i-1,true);
                     Collections.swap(locations,i,i-1);
                     save.setLocation("location_order",locations);
                     notifyDataSetChanged();
                 }else {
+                    isClick.clear();
+                    for (int i = 0; i < locations.size(); i++) {
+                        isClick.add(false);
+                    }
                     Toast.makeText(context, "已经到顶了", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -72,10 +112,19 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
             @Override
             public void onClick(View view) {
                 if (i<locations.size()-1){
+                    isClick.clear();
+                    for (int i = 0; i < locations.size(); i++) {
+                        isClick.add(false);
+                    }
+                    isClick.set(i+1,true);
                     Collections.swap(locations,i,i+1);
                     save.setLocation("location_order",locations);
                     notifyDataSetChanged();
                 }else {
+                    isClick.clear();
+                    for (int i = 0; i < locations.size(); i++) {
+                        isClick.add(false);
+                    }
                     Toast.makeText(context, "已经到底了", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -111,4 +160,5 @@ public class SettingExhibitonAdapter extends RecyclerView.Adapter<SettingExhibit
             exhbition_down=itemView.findViewById(R.id.exhbition_down);
         }
     }
+
 }

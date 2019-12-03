@@ -15,7 +15,7 @@
         android:background="@drawable/longbox"
         android:text="机器人展位"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_margin="5dp"
         android:gravity="center"/>
 
