@@ -1,10 +1,11 @@
 package com.example.facetest.activity_exhibition;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +33,8 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
     private int order=0;//导览顺序编号
     private Boolean code=false;
     private CountTimer timer;
+    private LinearLayout linear_guide;
+    private int stopCode=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
         locations=save.getLocation("location_order");
         guide_image=findViewById(R.id.guide_image);
         guide_introduce=findViewById(R.id.guide_introduce);
+        linear_guide=findViewById(R.id.linear_guide);
         timer=new CountTimer(60000,1000,this);//设置定时
         finish=findViewById(R.id.finish);
         finish.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +59,30 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
             public void onClick(View view) {
                 finish();
                 timer.cancel();
+            }
+        });
+        linear_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (stopCode%2==0){
+                    // 取消监听
+                    Toast.makeText(GuideActivity.this, "已暂停", Toast.LENGTH_SHORT).show();
+                    robot.removeOnGoToLocationStatusChangedListener(GuideActivity.this);
+                    robot.removeTtsListener(GuideActivity.this);
+                    timer.cancel();
+                    stopCode++;
+                }else {
+                    Toast.makeText(GuideActivity.this, "继续出发", Toast.LENGTH_SHORT).show();
+                    robot.addOnGoToLocationStatusChangedListener(GuideActivity.this);
+                    robot.addTtsListener(GuideActivity.this);
+                    if (order<beans.size()){
+                        robot.goTo(beans.get(order).getLocation());//前往下一个展位
+                    }else {
+                        Toast.makeText(GuideActivity.this, "没有更多展位了", Toast.LENGTH_SHORT).show();
+                        linear_guide.setOnClickListener(null);
+                    }
+                    stopCode++;
+                }
             }
         });
     }
@@ -143,8 +171,8 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
                 }
                 break;
             case "abort":
-                startActivity(new Intent(this,GuideActivity.class));
-                finish();
+//                startActivity(new Intent(this,GuideActivity.class));
+//                finish();
                 break;
         }
     }
