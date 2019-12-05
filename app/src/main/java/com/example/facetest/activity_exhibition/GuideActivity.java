@@ -34,7 +34,7 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
     private Boolean code=false;
     private CountTimer timer;
     private LinearLayout linear_guide;
-    private int stopCode=2;
+    private Boolean stopCode=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,24 +64,24 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
         linear_guide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (stopCode%2==0){
+                if (stopCode){
                     // 取消监听
                     Toast.makeText(GuideActivity.this, "已暂停", Toast.LENGTH_SHORT).show();
                     robot.removeOnGoToLocationStatusChangedListener(GuideActivity.this);
                     robot.removeTtsListener(GuideActivity.this);
                     timer.cancel();
-                    stopCode++;
+                    stopCode=false;
                 }else {
-                    Toast.makeText(GuideActivity.this, "继续出发", Toast.LENGTH_SHORT).show();
-                    robot.addOnGoToLocationStatusChangedListener(GuideActivity.this);
-                    robot.addTtsListener(GuideActivity.this);
                     if (order<beans.size()){
+                        Toast.makeText(GuideActivity.this, "继续出发", Toast.LENGTH_SHORT).show();
+                        robot.addOnGoToLocationStatusChangedListener(GuideActivity.this);
+                        robot.addTtsListener(GuideActivity.this);
                         robot.goTo(beans.get(order).getLocation());//前往下一个展位
+                        stopCode=true;
                     }else {
                         Toast.makeText(GuideActivity.this, "没有更多展位了", Toast.LENGTH_SHORT).show();
-                        linear_guide.setOnClickListener(null);
+                        timer.start();
                     }
-                    stopCode++;
                 }
             }
         });
