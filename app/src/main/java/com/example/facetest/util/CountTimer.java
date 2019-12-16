@@ -46,7 +46,8 @@ public class CountTimer extends CountDownTimer implements Robot.TtsListener, OnG
                     save=new ListDataSave(context,"location");
                     //默认回到导览的初始点
                     if (save.getLocation("location_order").size()!=0){
-                        robotTime.goTo(save.getLocation("location_order").get(0));
+//                        robotTime.goTo(save.getLocation("location_order").get(0));
+                        robotTime.goTo("入口");//回到客户自定义的迎宾点位“入口”
                     }else {
                         robotTime.goTo("home base");
                     }

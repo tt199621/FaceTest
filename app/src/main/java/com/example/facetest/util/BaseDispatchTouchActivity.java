@@ -38,8 +38,8 @@ public class BaseDispatchTouchActivity extends AppCompatActivity implements Robo
         });
     }
     private void init() {
-        //初始化CountTimer，设置倒计时为1分钟。
-        countTimerView=new CountTimer(1*60000,1000,BaseDispatchTouchActivity.this);
+        //初始化CountTimer，设置倒计时为40S。
+        countTimerView=new CountTimer(40000,1000,BaseDispatchTouchActivity.this);
     }
 
     /**

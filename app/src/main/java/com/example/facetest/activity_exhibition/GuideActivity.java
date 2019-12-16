@@ -52,7 +52,7 @@ public class GuideActivity extends AppCompatActivity implements Robot.TtsListene
         guide_image=findViewById(R.id.guide_image);
         guide_introduce=findViewById(R.id.guide_introduce);
         linear_guide=findViewById(R.id.linear_guide);
-        timer=new CountTimer(60000,1000,this);//设置定时
+        timer=new CountTimer(40000,1000,this);//设置定时
         finish=findViewById(R.id.finish);
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
